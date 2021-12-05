@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 public class Deserializer {
-    private static final String INPUT = "./src/main/java/day2/input.txt";
+    private static final String INPUT = "./src/main/resources/day2/input.txt";
     private static final String DELIMITER = " ";
 
     public Map<String, Integer> deserializeInputPart1() {

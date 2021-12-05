@@ -8,22 +8,23 @@ import java.util.List;
 import java.util.Scanner;
 
 public class DepthScanAnalyser {
-    private static final Path INPUT = Path.of("./src/main/java/day1/input.txt");
+    private static final Path INPUT = Path.of("./src/main/resources/day1/input.txt");
 
     private final List<Integer> depths = new ArrayList<>();
     private final List<Integer> threeDepthWindows = new ArrayList<>();
 
     public static void main(String[] args) {
-        // part 1
         var analyser = new DepthScanAnalyser();
+
+        // part 1
         analyser.deserializeDepthData();
-        int depthIncreases = analyser.getNumberOfDepthIncreases(analyser.depths);
-        System.out.println(depthIncreases);
+        int solution1 = analyser.getNumberOfDepthIncreases(analyser.depths);
+        System.out.println(solution1);
 
         // part 2
         analyser.getThreeDepthWindows();
-        depthIncreases = analyser.getNumberOfDepthIncreases(analyser.threeDepthWindows);
-        System.out.println(depthIncreases);
+        int solution2 = analyser.getNumberOfDepthIncreases(analyser.threeDepthWindows);
+        System.out.println(solution2);
     }
 
     private int getNumberOfDepthIncreases(List<Integer> list) {
