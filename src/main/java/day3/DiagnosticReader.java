@@ -24,8 +24,6 @@ public class DiagnosticReader {
         // part 2
         String o2Gen = diagnosticReader.getGen(true);
         String co2Gen = diagnosticReader.getGen(false);
-        System.out.println("o2 gen : " + Integer.parseInt(o2Gen, 2));
-        System.out.println("Co2 gen : " + Integer.parseInt(co2Gen, 2));
         int solution2 = Integer.parseInt(o2Gen, 2) * Integer.parseInt(co2Gen, 2);
         System.out.println(solution2);
     }
@@ -68,11 +66,9 @@ public class DiagnosticReader {
             } else {
                 filteredList.removeIf(s -> s.charAt(finalI) != (oxygen ? ZERO : ONE));
             }
-            if (filteredList.size() == 1) {
-                return filteredList.get(0);
-            }
+            if (filteredList.size() == 1) break;
         }
-        return null;
+        return filteredList.get(0);
     }
 
     private void deserializeReport() {
