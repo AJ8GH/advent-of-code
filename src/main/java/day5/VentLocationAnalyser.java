@@ -7,8 +7,16 @@ public class VentLocationAnalyser {
         var deserializer = new Deserializer();
         var hydroVentMap = deserializer.readInput();
         System.out.println(hydroVentMap.getCoordinates());
-        long solution = countCollisions(hydroVentMap);
-        System.out.println(solution);
+
+        // part 1
+        hydroVentMap.populateCollisionMap();
+        long solution1 = countCollisions(hydroVentMap);
+        System.out.println(solution1);
+
+        // part 2
+        hydroVentMap.populateDiagonals();
+        long solution2 = countCollisions(hydroVentMap);
+        System.out.println(solution2);
     }
 
     private static long countCollisions(HydroVentMap hydroVentMap) {

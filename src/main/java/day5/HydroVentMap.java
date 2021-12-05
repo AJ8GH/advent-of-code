@@ -15,7 +15,45 @@ public class HydroVentMap {
     public HydroVentMap(List<List<Integer>> coordinates) {
         this.coordinates = coordinates;
         this.collisionMap = createCollisionMap();
-        updateCollisionMap();
+    }
+
+    public void populateCollisionMap() {
+        for (List<Integer> coords : coordinates) {
+            int x1 = Math.min(coords.get(0), coords.get(2));
+            int x2 = Math.max(coords.get(0), coords.get(2));
+            int y1 = Math.min(coords.get(1), coords.get(3));
+            int y2 = Math.max(coords.get(1), coords.get(3));
+
+            if (y1 == y2) {
+                List<Integer> row = collisionMap.get(y1);
+                for (int x = x1; x <= x2; x++) {
+                    row.set(x, row.get(x) + 1);
+                }
+            } else if (x1 == x2) {
+                for (int y = y1; y <= y2; y++) {
+                    List<Integer> row = collisionMap.get(y);
+                    row.set(x1, row.get(x1) + 1);
+                }
+            }
+        }
+    }
+
+    public void populateDiagonals() {
+        for (List<Integer> coords : coordinates) {
+            int x1 = coords.get(0);
+            int x2 = coords.get(2);
+            int y1 = coords.get(1);
+            int y2 = coords.get(3);
+
+            if (x1 == x2 || y1 == y2) continue;
+            while (true) {
+                List<Integer> row = collisionMap.get(y1);
+                row.set(x1, row.get(x1) + 1);
+                if (y1 == y2) break;
+                y1 += y1 < y2 ? 1 : -1;
+                x1 += x1 < x2 ? 1 : -1;
+            }
+        }
     }
 
     private List<List<Integer>> createCollisionMap() {
@@ -29,31 +67,6 @@ public class HydroVentMap {
             collisionMap.add(row);
         }
         return collisionMap;
-    }
-
-    private void updateCollisionMap() {
-        for (List<Integer> coords : coordinates) {
-            int x1 = Math.min(coords.get(0), coords.get(2));
-            int x2 = Math.max(coords.get(0), coords.get(2));
-            int y1 = Math.min(coords.get(1), coords.get(3));
-            int y2 = Math.max(coords.get(1), coords.get(3));
-
-            if (y1 == y2) {
-                List<Integer> row = collisionMap.get(y1);
-                for (int x = x1; x <= x2; x++) {
-                    row.set(x, row.get(x) + 1);
-                }
-            }
-
-            if (x1 == x2) {
-                for (int y = y1; y <= y2; y++) {
-                    List<Integer> row = collisionMap.get(y);
-                    row.set(x1, row.get(x1) + 1);
-                }
-            }
-
-            log.info(this.toString());
-        }
     }
 
     private int getMax(int index) {

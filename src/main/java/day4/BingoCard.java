@@ -38,10 +38,7 @@ public class BingoCard {
         if (won) return false;
         numbers.forEach(row -> {
             int index = row.indexOf(number);
-            if (index >= 0) {
-                row.remove(index);
-                row.add(index, -1);
-            }
+            if (index >= 0) row.set(index, -1);
         });
         return checkForBingo();
     }
