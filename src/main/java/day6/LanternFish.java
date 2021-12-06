@@ -1,14 +1,16 @@
 package day6;
 
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 @Getter
 public class LanternFish {
     private int daysLeftInCycle;
-    private List<LanternFish> children = new ArrayList<>();
+    private final List<LanternFish> children = new ArrayList<>();
 
     public LanternFish(int daysLeftInCycle) {
         this.daysLeftInCycle = daysLeftInCycle;

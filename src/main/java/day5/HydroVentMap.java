@@ -80,6 +80,7 @@ public class HydroVentMap {
         return max;
     }
 
+    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         for (List<Integer> row : collisionMap) {

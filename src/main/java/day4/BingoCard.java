@@ -18,22 +18,6 @@ public class BingoCard {
         this.cardNumber = cardNumber;
     }
 
-    public List<Integer> getRow(int rowNumber) {
-        return numbers.get(rowNumber);
-    }
-
-    public List<Integer> getColumn(int columnNumber) {
-        List<Integer> column = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
-            column.add(numbers.get(i).get(columnNumber));
-        }
-        return column;
-    }
-
-    public String toString() {
-        return "Card " + cardNumber + ": " + numbers.toString();
-    }
-
     public boolean markNumber(int number) {
         if (won) return false;
         numbers.forEach(row -> {
@@ -53,5 +37,23 @@ public class BingoCard {
              }
          }
          return false;
+    }
+
+
+    public List<Integer> getRow(int rowNumber) {
+        return numbers.get(rowNumber);
+    }
+
+    public List<Integer> getColumn(int columnNumber) {
+        List<Integer> column = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            column.add(numbers.get(i).get(columnNumber));
+        }
+        return column;
+    }
+
+    @Override
+    public String toString() {
+        return "Card " + cardNumber + ": " + numbers.toString();
     }
 }

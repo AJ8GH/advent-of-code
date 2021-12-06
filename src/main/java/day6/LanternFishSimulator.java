@@ -17,22 +17,10 @@ public class LanternFishSimulator {
 
     public static void main(String[] args) {
         deserialize();
-        runSimulation(80);
+        runSimulation(256);
+        log.info("Simulation complete... counting the fish....");
         FISH_LIST.forEach(LanternFishSimulator::countFish);
         System.out.println(count);
-    }
-
-    private static void deserialize() {
-        try (var reader = new BufferedReader(new FileReader(INPUT))) {
-            List<String> data = Arrays.asList(reader.readLine().split(","));
-            data.stream().map(numStr -> {
-                int cycleDays = Integer.parseInt(numStr);
-                return new LanternFish(cycleDays);
-            }).forEach(FISH_LIST::add);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        log.info(FISH_LIST.toString());
     }
 
     private static void runSimulation(int days) {
@@ -43,10 +31,17 @@ public class LanternFishSimulator {
 
     private static void countFish(LanternFish fish) {
         count++;
-        if (!fish.getChildren().isEmpty()) {
-            for (LanternFish child : fish.getChildren()) {
-                countFish(child);
-            }
+        fish.getChildren().forEach(LanternFishSimulator::countFish);
+    }
+
+    private static void deserialize() {
+        try (var reader = new BufferedReader(new FileReader(INPUT))) {
+            Arrays.stream(reader.readLine().split(","))
+                    .map(numStr -> new LanternFish(Integer.parseInt(numStr)))
+                    .forEach(FISH_LIST::add);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+        log.info(FISH_LIST.toString());
     }
 }
