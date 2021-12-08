@@ -9,15 +9,17 @@ import java.util.List;
 @Slf4j
 @Getter
 public class LanternFish {
-    private int daysLeftInCycle;
+    private static final int FIRST_CYCLE = 8;
+
     private final List<LanternFish> children = new ArrayList<>();
+    private int daysLeftInCycle;
 
     public LanternFish(int daysLeftInCycle) {
         this.daysLeftInCycle = daysLeftInCycle;
     }
 
     public LanternFish() {
-        this.daysLeftInCycle = 8;
+        this.daysLeftInCycle = FIRST_CYCLE;
     }
 
     public void tick() {
