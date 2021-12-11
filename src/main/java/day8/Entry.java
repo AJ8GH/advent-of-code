@@ -1,14 +1,12 @@
 package day8;
 
 import lombok.Getter;
-import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-@Slf4j
 @Getter
 public class Entry {
     private static final Map<Integer, Integer> UNIQUE_SEGMENT_MAP = Map.of(

@@ -1,7 +1,6 @@
 package day9;
 
 import lombok.Getter;
-import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -10,7 +9,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-@Slf4j
 @Getter
 public class HeightMap {
     private final List<List<Point>> map;
@@ -75,9 +73,7 @@ public class HeightMap {
 
     private Point getPoint(int x, int y) {
         Point point = map.get(y).get(x);
-        point.setX(x);
-        point.setY(y);
-        return point;
+        return point.setX(x).setY(y);
     }
 
     @Override

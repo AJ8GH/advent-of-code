@@ -1,7 +1,5 @@
 package day9;
 
-import lombok.extern.slf4j.Slf4j;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -11,7 +9,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Slf4j
 public class RiskLevelAnalyzer {
     private static final String INPUT = "./src/main/resources/day9/input.txt";
     private static final String EXAMPLE = "./src/main/resources/day9/example.txt";
@@ -40,8 +37,9 @@ public class RiskLevelAnalyzer {
     private int getLargestBasinsFactor(HeightMap heightMap) {
         List<Basin> basins = heightMap.getBasins();
         basins.sort(Comparator.comparing(Basin::size));
-        List<Basin> largestBasins = basins.subList(basins.size() - 3, basins.size());
-        return largestBasins.stream().map(Basin::size)
+        return basins.subList(basins.size() - 3, basins.size())
+                .stream()
+                .map(Basin::size)
                 .reduce(1, (s1, s2) -> s1 * s2);
     }
 
@@ -50,15 +48,13 @@ public class RiskLevelAnalyzer {
         try (var reader = new BufferedReader(new FileReader(filePath))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                heightMatrix.add(
-                        Arrays.stream(line.split(""))
+                heightMatrix.add(Arrays.stream(line.split(""))
                         .map(n -> new Point(Integer.parseInt(n)))
                         .collect(Collectors.toList()));
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        log.info(new HeightMap(heightMatrix).toString());
         return new HeightMap(heightMatrix);
     }
 }

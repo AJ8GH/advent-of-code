@@ -1,13 +1,11 @@
 package day6;
 
-import lombok.Getter;
-import lombok.extern.slf4j.Slf4j;
+import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Slf4j
-@Getter
+@Data
 public class LanternFish {
     private static final int FIRST_CYCLE = 8;
 
@@ -30,10 +28,5 @@ public class LanternFish {
         } else {
             daysLeftInCycle--;
         }
-    }
-
-    @Override
-    public String toString() {
-        return daysLeftInCycle + children.toString();
     }
 }

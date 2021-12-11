@@ -1,7 +1,5 @@
 package day8;
 
-import lombok.extern.slf4j.Slf4j;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -9,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-@Slf4j
 public class DigitParser {
     private static final String INPUT_EXAMPLE = "./src/main/resources/day8/example.txt";
     private static final String INPUT_PATH = "./src/main/resources/day8/input.txt";
