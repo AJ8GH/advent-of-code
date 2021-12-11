@@ -7,6 +7,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -17,24 +18,41 @@ public class RiskLevelAnalyzer {
 
     public static void main(String[] args) {
         var riskLevelAnalyzer = new RiskLevelAnalyzer();
-        var heightMap = riskLevelAnalyzer.deserialize();
+        var heightMap = riskLevelAnalyzer.deserialize(INPUT);
+
+        // part 1
         heightMap.findLowPoints();
-        log.info(heightMap.getLowPoints().toString());
         int riskLevel = riskLevelAnalyzer.calculateScore(heightMap.getLowPoints());
         System.out.println(riskLevel);
+
+        // part 2
+        heightMap.findBasins();
+        int solution = riskLevelAnalyzer.getLargestBasinsFactor(heightMap);
+        System.out.println(solution);
     }
 
-    private int calculateScore(List<Integer> lowPoints) {
-        return lowPoints.stream().reduce(lowPoints.size(), Integer::sum);
+    private int calculateScore(List<Point> lowPoints) {
+        return lowPoints.stream()
+                .map(Point::getHeight)
+                .reduce(lowPoints.size(), Integer::sum);
     }
 
-    private HeightMap deserialize() {
-        List<List<Integer>> heightMatrix = new ArrayList<>();
-        try (var reader = new BufferedReader(new FileReader(INPUT))) {
+    private int getLargestBasinsFactor(HeightMap heightMap) {
+        List<Basin> basins = heightMap.getBasins();
+        basins.sort(Comparator.comparing(Basin::size));
+        List<Basin> largestBasins = basins.subList(basins.size() - 3, basins.size());
+        return largestBasins.stream().map(Basin::size)
+                .reduce(1, (s1, s2) -> s1 * s2);
+    }
+
+    private HeightMap deserialize(String filePath) {
+        List<List<Point>> heightMatrix = new ArrayList<>();
+        try (var reader = new BufferedReader(new FileReader(filePath))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                heightMatrix.add(Arrays.stream(line.split(""))
-                        .map(Integer::valueOf)
+                heightMatrix.add(
+                        Arrays.stream(line.split(""))
+                        .map(n -> new Point(Integer.parseInt(n)))
                         .collect(Collectors.toList()));
             }
         } catch (IOException e) {
