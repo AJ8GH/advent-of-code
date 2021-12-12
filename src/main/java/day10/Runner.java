@@ -7,7 +7,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Slf4j
 public class Runner {
@@ -18,40 +17,25 @@ public class Runner {
     public static void main(String[] args) {
         // part 1
         List<String> lines = deserialize(EXAMPLE);
-        int score = calculateScore(lines);
+        int score = SYNTAX_CHECKER.getCorruptedScore(lines);
         log.info("Part 1 - Example: {}", score);
         assert score == 26397;
 
         lines = deserialize(INPUT);
-        score = calculateScore(lines);
+        score = SYNTAX_CHECKER.getCorruptedScore(lines);
         log.info("Part 1 - Solution: {}", score);
         assert score == 462693;
 
         //part 2
         lines = deserialize(EXAMPLE);
-        long completionScore = getMiddleScore(lines);
+        long completionScore = SYNTAX_CHECKER.getMiddleCompletionScore(lines);
         log.info("Part 2 - Example: {}", completionScore);
         assert completionScore == 288957;
 
         lines = deserialize(INPUT);
-        completionScore = getMiddleScore(lines);
+        completionScore = SYNTAX_CHECKER.getMiddleCompletionScore(lines);
         log.info("Part 2 - Solution: {}", completionScore);
         assert completionScore == 3094671161L;
-    }
-
-    private static int calculateScore(List<String> lines) {
-        return lines.stream()
-                .map(SYNTAX_CHECKER::checkCorrupted)
-                .reduce(0, Integer::sum);
-    }
-
-    private static long getMiddleScore(List<String> lines) {
-        List<Long> scores = lines.stream()
-                .map(SYNTAX_CHECKER::checkIncomplete)
-                .filter(score -> score > 0)
-                .sorted()
-                .collect(Collectors.toList());
-        return scores.get(scores.size() / 2);
     }
 
     private static List<String> deserialize(String filePath) {

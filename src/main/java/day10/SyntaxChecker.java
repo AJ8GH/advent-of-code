@@ -31,7 +31,23 @@ public class SyntaxChecker {
             ">", 4L
     );
 
-    public int checkCorrupted(String line) {
+    public int getCorruptedScore(List<String> lines) {
+        return lines.stream()
+                .map(this::checkCorrupted)
+                .reduce(0, Integer::sum);
+    }
+
+    public long getMiddleCompletionScore(List<String> lines) {
+        List<Long> scores = lines.stream()
+                .map(this::checkIncomplete)
+                .filter(score -> score > 0)
+                .sorted()
+                .collect(Collectors.toList());
+        return scores.get(scores.size() / 2);
+    }
+
+
+    private int checkCorrupted(String line) {
         List<String> expected = new ArrayList<>();
         String[] brackets = line.split("");
         for (String bracket : brackets) {
@@ -42,7 +58,7 @@ public class SyntaxChecker {
         return 0;
     }
 
-    public long checkIncomplete(String line) {
+    private long checkIncomplete(String line) {
         List<String> expected = new ArrayList<>();
         String[] brackets = line.split("");
         for (String bracket : brackets) {
@@ -74,7 +90,7 @@ public class SyntaxChecker {
         return totalScore;
     }
 
-    public boolean isOpening(String bracket) {
+    private boolean isOpening(String bracket) {
         return PAIRS.containsKey(bracket);
     }
 }
