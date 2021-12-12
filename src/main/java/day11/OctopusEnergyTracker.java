@@ -32,6 +32,15 @@ public class OctopusEnergyTracker {
         reset();
     }
 
+    public boolean isSimultaneousFlash() {
+        for (List<DumboOctopus> row : octopusGrid) {
+            for (DumboOctopus octopus : row) {
+                if (octopus.getEnergy() != 0) return false;
+            }
+        }
+        return true;
+    }
+
     private void tickNeighbours(DumboOctopus octopus) {
         Set<DumboOctopus> neighbours = getNeighbours(octopus);
         neighbours.forEach(o -> {
@@ -65,6 +74,7 @@ public class OctopusEnergyTracker {
         octopus.setY(y);
         return octopus;
     }
+
 
     private void reset() {
         octopusGrid.forEach(list -> list.forEach(DumboOctopus::reset));

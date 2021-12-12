@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
 public class Runner {
     private static final String EXAMPLE = "./src/main/resources/day11/example.txt";
     private static final String INPUT = "./src/main/resources/day11/input.txt";
+    private static int firstSimultaneousFlash;
 
     public static void main(String[] args) {
         // part 1
@@ -25,13 +26,27 @@ public class Runner {
         tracker = deserialize(INPUT);
         runSimulation(100, tracker);
         log.info("Part 1 - Solution: {}", tracker.getFlashes());
-//        assert tracker.getFlashes() == 1656;
+        assert tracker.getFlashes() == 1732;
 
+        // part 2
+        tracker = deserialize(EXAMPLE);
+        runSimulation(500, tracker);
+        log.info("Part 2 - Example: {}", firstSimultaneousFlash);
+        assert firstSimultaneousFlash == 195;
+
+        tracker = deserialize(INPUT);
+        runSimulation(500, tracker);
+        log.info("Part 1 - Solution: {}", firstSimultaneousFlash);
+        assert firstSimultaneousFlash == 290;
     }
 
     private static void runSimulation(int steps, OctopusEnergyTracker tracker) {
         for (int i = 0; i < steps; i++) {
             tracker.tick();
+            if (tracker.isSimultaneousFlash()) {
+                firstSimultaneousFlash = i + 1;
+                break;
+            };
         }
     }
 
