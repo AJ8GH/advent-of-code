@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
-public class Runner {
+public class Main {
     private static final String INPUT = "./src/main/resources/day10/input.txt";
     private static final String EXAMPLE = "./src/main/resources/day10/example.txt";
     private static final SyntaxChecker SYNTAX_CHECKER = new SyntaxChecker();

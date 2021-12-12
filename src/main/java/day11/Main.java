@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Slf4j
-public class Runner {
+public class Main {
     private static final String EXAMPLE = "./src/main/resources/day11/example.txt";
     private static final String INPUT = "./src/main/resources/day11/input.txt";
     private static int firstSimultaneousFlash;
