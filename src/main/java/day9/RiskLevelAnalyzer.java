@@ -37,8 +37,7 @@ public class RiskLevelAnalyzer {
     private int getLargestBasinsFactor(HeightMap heightMap) {
         List<Basin> basins = heightMap.getBasins();
         basins.sort(Comparator.comparing(Basin::size));
-        return basins.subList(basins.size() - 3, basins.size())
-                .stream()
+        return basins.subList(basins.size() - 3, basins.size()).stream()
                 .map(Basin::size)
                 .reduce(1, (s1, s2) -> s1 * s2);
     }
