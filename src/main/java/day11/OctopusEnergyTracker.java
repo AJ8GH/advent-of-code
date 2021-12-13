@@ -19,15 +19,9 @@ public class OctopusEnergyTracker {
         this.columns = octopusGrid.get(0).size();
     }
 
-    public void tick() {
+    public void tickAll() {
         for (int y = 0; y < rows; y++) {
-            for (int x = 0; x < columns; x++) {
-                DumboOctopus octopus = get(x, y);
-                if (octopus.tick()) {
-                    flashes++;
-                    tickNeighbours(octopus);
-                }
-            }
+            for (int x = 0; x < columns; x++) tick(get(x, y));
         }
         reset();
     }
@@ -41,14 +35,11 @@ public class OctopusEnergyTracker {
         return true;
     }
 
-    private void tickNeighbours(DumboOctopus octopus) {
-        Set<DumboOctopus> neighbours = getNeighbours(octopus);
-        neighbours.forEach(o -> {
-            if (o.tick()) {
-                flashes++;
-                tickNeighbours(o);
-            }
-        });
+    private void tick(DumboOctopus octopus) {
+        if (octopus.tick()) {
+            flashes++;
+            getNeighbours(octopus).forEach(this::tick);
+        }
     }
 
     private Set<DumboOctopus> getNeighbours(DumboOctopus octopus) {
@@ -74,7 +65,6 @@ public class OctopusEnergyTracker {
         octopus.setY(y);
         return octopus;
     }
-
 
     private void reset() {
         octopusGrid.forEach(list -> list.forEach(DumboOctopus::reset));

@@ -42,7 +42,7 @@ public class Main {
 
     private static void runSimulation(int steps, OctopusEnergyTracker tracker) {
         for (int i = 0; i < steps; i++) {
-            tracker.tick();
+            tracker.tickAll();
             if (tracker.isSimultaneousFlash()) {
                 firstSimultaneousFlash = i + 1;
                 break;
