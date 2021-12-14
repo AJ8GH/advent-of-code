@@ -5,7 +5,8 @@ import lombok.Data;
 @Data
 public class DumboOctopus {
     private int energy;
-    private int x, y;
+    private int x;
+    private int y;
 
     public DumboOctopus(int energy) {
         this.energy = energy;

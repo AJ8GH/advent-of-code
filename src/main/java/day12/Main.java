@@ -15,7 +15,11 @@ public class Main {
 
     public static void main(String[] args) {
         RouteMapper routeMapper = new RouteMapper();
+        runPartOne(routeMapper);
+        runPartTwo(routeMapper);
+    }
 
+    private static void runPartOne(RouteMapper routeMapper) {
         deserialize(EXAMPLE_1);
         int routes = findRoutes(routeMapper);
         log.info("Part 1 - Example 1: {}", routes);
@@ -35,10 +39,13 @@ public class Main {
         routes = findRoutes(routeMapper);
         log.info("Part 1 - Solution: {}", routes);
         assert routes == 3761;
+    }
 
-        routeMapper.setPart(2);
+    private static void runPartTwo(RouteMapper routeMapper) {
+        routeMapper.setMaxSmallCaveVisits(2);
+
         deserialize(EXAMPLE_1);
-        routes = findRoutes(routeMapper);
+        int routes = findRoutes(routeMapper);
         log.info("Part 2 - Example 1: {}", routes);
         assert routes == 36;
 

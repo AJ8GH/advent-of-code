@@ -10,7 +10,7 @@ import java.util.Map;
 @Data
 public class Route {
     private final List<Cave> caves;
-    private int part = 1;
+    private int maxSmallCaveVisits = 1;
 
     public Route(List<Cave> caves) {
         this.caves = caves;
@@ -34,20 +34,13 @@ public class Route {
     }
 
     public boolean isValid() {
-        if (!getFirst().isStart()) return false;
-        Map<Cave, Integer> smallCaveMap = new HashMap<>();
-        caves.forEach(cave -> {
-            if (cave.isSmall()) {
-                int count = smallCaveMap.getOrDefault(cave, 0);
-                smallCaveMap.put(cave, ++count);
-            }
-        });
-        if (part == 1) {
-            return smallCaveMap.values().stream().noneMatch(n -> n > 1);
-        } else {
-            return smallCaveMap.values().stream().filter(n -> n > 1).count() <= 1 &&
-                    smallCaveMap.values().stream().noneMatch(n -> n > 2);
-        }
+        Map<Cave, Integer> tally = new HashMap<>();
+        caves.stream().filter(Cave::isSmall)
+                .forEach(c -> tally.put(c, tally.getOrDefault(c, 0) + 1));
+        return maxSmallCaveVisits == 1 ?
+                tally.values().stream().noneMatch(n -> n > 1) :
+                tally.values().stream().filter(n -> n > 1).count() <= 1 &&
+                        tally.values().stream().noneMatch(n -> n > 2);
     }
 
     public boolean isComplete() {
@@ -58,6 +51,6 @@ public class Route {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         caves.forEach(cave -> sb.append(cave.getName()).append("--"));
-        return sb.toString();
+        return sb.substring(0, sb.length() - 2);
     }
 }

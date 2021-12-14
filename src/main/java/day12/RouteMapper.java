@@ -14,15 +14,13 @@ import java.util.Set;
 @Slf4j
 public class RouteMapper {
     private final List<Route> completedRoutes = new ArrayList<>();
-    int
-            part = 1;
+    private int maxSmallCaveVisits = 1;
 
     public void mapRoutes(Collection<Cave> caves) {
-        List<Route> routes = new ArrayList<>();
         Route route = new Route();
         Cave start = getStart(caves);
         route.add(start);
-        routes.add(route);
+        List<Route> routes = new ArrayList<>(List.of(route));
         exploreRoutes(routes);
     }
 
@@ -33,19 +31,25 @@ public class RouteMapper {
             for (Cave connection : connections) {
                 if (connection.isStart()) continue;
                 Route newRoute = new Route(new ArrayList<>(route.getCaves()));
-                newRoute.setPart(part);
+                newRoute.setMaxSmallCaveVisits(maxSmallCaveVisits);
                 newRoutes.remove(route);
-                if (newRoute.add(connection)) {
-                    if (newRoute.isComplete()) {
-                        log.info("GOT ONE: " + newRoute);
-                        completedRoutes.add(newRoute);
-                    } else {
-                        newRoutes.add(newRoute);
-                    }
-                }
+                exploreConnection(connection, newRoutes, newRoute);
             }
         }
         if (!newRoutes.isEmpty()) exploreRoutes(newRoutes);
+    }
+
+    private void exploreConnection(Cave connection,
+                                   List<Route> newRoutes,
+                                   Route newRoute) {
+        if (newRoute.add(connection)) {
+            if (newRoute.isComplete()) {
+                log.info("Completed Route: " + newRoute);
+                completedRoutes.add(newRoute);
+            } else {
+                newRoutes.add(newRoute);
+            }
+        }
     }
 
     public void clear() {

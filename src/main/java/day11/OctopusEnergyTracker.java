@@ -21,7 +21,9 @@ public class OctopusEnergyTracker {
 
     public void tickAll() {
         for (int y = 0; y < rows; y++) {
-            for (int x = 0; x < columns; x++) tick(get(x, y));
+            for (int x = 0; x < columns; x++) {
+                tick(get(x, y));
+            }
         }
         reset();
     }
