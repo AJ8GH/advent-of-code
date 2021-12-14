@@ -35,6 +35,27 @@ public class Main {
         routes = findRoutes(routeMapper);
         log.info("Part 1 - Solution: {}", routes);
         assert routes == 3761;
+
+        routeMapper.setPart(2);
+        deserialize(EXAMPLE_1);
+        routes = findRoutes(routeMapper);
+        log.info("Part 2 - Example 1: {}", routes);
+        assert routes == 36;
+
+        deserialize(EXAMPLE_2);
+        routes = findRoutes(routeMapper);
+        log.info("Part 2 - Example 2: {}", routes);
+        assert routes == 103;
+
+        deserialize(EXAMPLE_3);
+        routes = findRoutes(routeMapper);
+        log.info("Part 2 - Example 3: {}", routes);
+        assert routes == 3509;
+
+        deserialize(INPUT);
+        routes = findRoutes(routeMapper);
+        log.info("Part 2 - Solution: {}", routes);
+        assert routes == 99138;
     }
 
     private static int findRoutes(RouteMapper routeMapper) {

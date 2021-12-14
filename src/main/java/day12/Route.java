@@ -10,6 +10,7 @@ import java.util.Map;
 @Data
 public class Route {
     private final List<Cave> caves;
+    private int part = 1;
 
     public Route(List<Cave> caves) {
         this.caves = caves;
@@ -41,7 +42,12 @@ public class Route {
                 smallCaveMap.put(cave, ++count);
             }
         });
-        return smallCaveMap.values().stream().noneMatch(n -> n > 1);
+        if (part == 1) {
+            return smallCaveMap.values().stream().noneMatch(n -> n > 1);
+        } else {
+            return smallCaveMap.values().stream().filter(n -> n > 1).count() <= 1 &&
+                    smallCaveMap.values().stream().noneMatch(n -> n > 2);
+        }
     }
 
     public boolean isComplete() {
