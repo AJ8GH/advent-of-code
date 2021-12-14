@@ -5,8 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 @Slf4j
 public class Main {
@@ -16,18 +14,48 @@ public class Main {
     private static final String INPUT = "./src/main/resources/day12/input.txt";
 
     public static void main(String[] args) {
-        List<String> routes = deserialize(EXAMPLE_1);
-        log.info(routes.toString());
+        RouteMapper routeMapper = new RouteMapper();
+
+        deserialize(EXAMPLE_1);
+        int routes = findRoutes(routeMapper);
+        log.info("Part 1 - Example 1: {}", routes);
+        assert routes == 10;
+
+        deserialize(EXAMPLE_2);
+        routes = findRoutes(routeMapper);
+        log.info("Part 1 - Example 2: {}", routes);
+        assert routes == 19;
+
+        deserialize(EXAMPLE_3);
+        routes = findRoutes(routeMapper);
+        log.info("Part 1 - Example 3: {}", routes);
+        assert routes == 226;
+
+        deserialize(INPUT);
+        routes = findRoutes(routeMapper);
+        log.info("Part 1 - Solution: {}", routes);
+        assert routes == 3761;
     }
 
-    private static List<String> deserialize(String filePath) {
-        List<String> routes = new ArrayList<>();
+    private static int findRoutes(RouteMapper routeMapper) {
+        routeMapper.clear();
+        routeMapper.mapRoutes(Cave.getCaves());
+        return routeMapper.getCompletedRoutes().size();
+    }
+
+    private static void deserialize(String filePath) {
+        Cave.clear();
         try (var reader = new BufferedReader(new FileReader(filePath))) {
-            String route;
-            while ((route = reader.readLine()) != null) routes.add(route);
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] splitLine = line.split("-");
+                Cave cave1 = Cave.create(splitLine[0]);
+                Cave cave2 = Cave.create(splitLine[1]);
+                cave1.addConnection(cave2);
+                cave2.addConnection(cave1);
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return routes;
     }
 }
