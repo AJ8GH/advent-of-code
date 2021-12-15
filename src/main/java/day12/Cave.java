@@ -9,6 +9,8 @@ import java.util.Set;
 @Data
 public class Cave {
     private static final Set<Cave> CAVES = new HashSet<>();
+    private static final String END = "END";
+    private static final String START = "START";
 
     @EqualsAndHashCode.Exclude
     private final Set<Cave> connections = new HashSet<>();
@@ -36,11 +38,11 @@ public class Cave {
     }
 
     public boolean isEnd() {
-        return name.equalsIgnoreCase("end");
+        return name.equalsIgnoreCase(END);
     }
 
     public boolean isStart() {
-        return name.equalsIgnoreCase("start");
+        return name.equalsIgnoreCase(START);
     }
 
     private Cave(String name) {
@@ -50,8 +52,8 @@ public class Cave {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder(name).append(" ---> ");
-        connections.forEach(cave -> sb.append(cave.getName()).append(", "));
-        return sb.toString();
+        StringBuilder sb = new StringBuilder(name).append(" -> ");
+        connections.forEach(cave -> sb.append(cave.getName()).append("-"));
+        return sb.substring(0, sb.length() - 1);
     }
 }

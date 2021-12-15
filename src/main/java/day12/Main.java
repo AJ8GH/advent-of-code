@@ -42,7 +42,7 @@ public class Main {
     }
 
     private static void runPartTwo(RouteMapper routeMapper) {
-        routeMapper.setMaxSmallCaveVisits(2);
+        routeMapper.setDoubleVisit(true);
 
         deserialize(EXAMPLE_1);
         int routes = findRoutes(routeMapper);

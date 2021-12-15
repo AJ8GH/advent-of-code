@@ -14,7 +14,7 @@ import java.util.Set;
 @Slf4j
 public class RouteMapper {
     private final List<Route> completedRoutes = new ArrayList<>();
-    private int maxSmallCaveVisits = 1;
+    private boolean doubleVisit = false;
 
     public void mapRoutes(Collection<Cave> caves) {
         Route route = new Route();
@@ -30,8 +30,8 @@ public class RouteMapper {
             Set<Cave> connections = route.getLast().getConnections();
             for (Cave connection : connections) {
                 if (connection.isStart()) continue;
-                Route newRoute = new Route(new ArrayList<>(route.getCaves()));
-                newRoute.setMaxSmallCaveVisits(maxSmallCaveVisits);
+                List<Cave> caves = new ArrayList<>(route.getCaves());
+                Route newRoute = new Route(caves, doubleVisit);
                 newRoutes.remove(route);
                 exploreConnection(connection, newRoutes, newRoute);
             }

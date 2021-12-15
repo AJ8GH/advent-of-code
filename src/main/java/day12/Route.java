@@ -10,10 +10,11 @@ import java.util.Map;
 @Data
 public class Route {
     private final List<Cave> caves;
-    private int maxSmallCaveVisits = 1;
+    private boolean doubleVisit = false;
 
-    public Route(List<Cave> caves) {
+    public Route(List<Cave> caves, boolean doubleVisit) {
         this.caves = caves;
+        this.doubleVisit = doubleVisit;
     }
 
     public Route() {
@@ -37,7 +38,7 @@ public class Route {
         Map<Cave, Integer> tally = new HashMap<>();
         caves.stream().filter(Cave::isSmall)
                 .forEach(c -> tally.put(c, tally.getOrDefault(c, 0) + 1));
-        return maxSmallCaveVisits == 1 ?
+        return !doubleVisit ?
                 tally.values().stream().noneMatch(n -> n > 1) :
                 tally.values().stream().filter(n -> n > 1).count() <= 1 &&
                         tally.values().stream().noneMatch(n -> n > 2);
