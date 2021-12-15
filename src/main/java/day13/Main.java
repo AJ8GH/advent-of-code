@@ -6,11 +6,9 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Slf4j
 public class Main {
@@ -52,19 +50,25 @@ public class Main {
             while ((line = reader.readLine()) != null) {
                 if (line.isEmpty()) continue;
                 if (!line.contains("=")) {
-                    List<Integer> coords = Arrays.stream(line.split(","))
-                            .map(Integer::valueOf).collect(Collectors.toList());
-                    Dot dot = new Dot(coords.get(0), coords.get(1));
-                    DOTS.add(dot);
+                    deserializeFold(line);
                 } else {
-                    String[] fold = line.split("=");
-                    String axis = fold[0].substring(fold[0].length() - 1);
-                    Integer point = Integer.valueOf(fold[1]);
-                    FOLDS.add(new Fold(axis, point));
+                    deserializeDot(line);
                 }
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private static void deserializeFold(String line) {
+        String[] dotPoints = line.split(",");
+        DOTS.add(new Dot(Integer.parseInt(dotPoints[0]), Integer.parseInt(dotPoints[1])));
+    }
+
+    private static void deserializeDot(String line) {
+        String[] fold = line.split("=");
+        String axis = fold[0].substring(fold[0].length() - 1);
+        Integer point = Integer.valueOf(fold[1]);
+        FOLDS.add(new Fold(axis, point));
     }
 }

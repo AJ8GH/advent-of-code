@@ -16,15 +16,20 @@ public class PaperGrid {
     }
 
     public List<List<Object>> mapDots(Set<Dot> dots) {
-        int maxX = getMaxX(dots);
-        int maxY = getMaxY(dots);
+        List<List<Object>> grid = createEmptyGrid(getMaxX(dots), getMaxY(dots));
+        for (Dot dot : dots) {
+            grid.get(dot.getY()).set(dot.getX(), dot);
+        }
+        return grid;
+    }
+
+    private List<List<Object>> createEmptyGrid(int maxX, int maxY) {
         List<List<Object>> grid = new ArrayList<>(maxY + 1);
         for (int i = 0; i < maxY + 1; i++) {
             List<Object> row = new ArrayList<>(maxX);
-            for (int j = 0; j < maxX + 1; j++) row.add(".");
             grid.add(row);
+            for (int j = 0; j < maxX + 1; j++) row.add(".");
         }
-        for (Dot dot : dots) grid.get(dot.getY()).set(dot.getX(), dot);
         return grid;
     }
 
