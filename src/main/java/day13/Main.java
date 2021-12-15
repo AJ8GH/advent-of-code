@@ -38,8 +38,8 @@ public class Main {
         log.info("{}", foldedDots.size());
         assert foldedDots.size() == 98;
 
-        PaperGrid paperGrid = new PaperGrid(foldedDots);
-        paperGrid.getGrid().forEach(row -> log.info(row.toString()));
+        PaperGrid paperGrid = new PaperGrid();
+        paperGrid.mapDots(DOTS).forEach(row -> log.info(row.toString()));
     }
 
     private static void deserialize(String filePath) {

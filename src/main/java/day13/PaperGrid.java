@@ -9,28 +9,23 @@ import java.util.stream.Collectors;
 
 @Data
 public class PaperGrid {
-    private final List<List<Object>> grid;
-
-    public PaperGrid(Set<Dot> dots) {
-        this.grid = mapDots(dots);
-    }
+    private final List<List<Object>> grid = new ArrayList<>();
 
     public List<List<Object>> mapDots(Set<Dot> dots) {
-        List<List<Object>> grid = createEmptyGrid(getMaxX(dots), getMaxY(dots));
+        grid.clear();
+        createEmptyGrid(getMaxX(dots), getMaxY(dots));
         for (Dot dot : dots) {
             grid.get(dot.getY()).set(dot.getX(), dot);
         }
         return grid;
     }
 
-    private List<List<Object>> createEmptyGrid(int maxX, int maxY) {
-        List<List<Object>> grid = new ArrayList<>(maxY + 1);
+    private void createEmptyGrid(int maxX, int maxY) {
         for (int i = 0; i < maxY + 1; i++) {
             List<Object> row = new ArrayList<>(maxX);
-            grid.add(row);
             for (int j = 0; j < maxX + 1; j++) row.add(".");
+            grid.add(row);
         }
-        return grid;
     }
 
     private int getMaxX(Set<Dot> dots) {

@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Set;
 
 public class Folder {
-
     public Set<Dot> fold(Set<Dot> dots, List<Fold> folds, int timesToFold) {
         for (int i = 0; i < timesToFold; i++) {
             Fold fold = folds.get(i);
