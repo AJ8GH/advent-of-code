@@ -16,33 +16,32 @@ import java.util.stream.Collectors;
 public class PolymerBuilder {
     private String template;
     private final Map<String, String> pairs;
-    private final Map<String, Integer> count = new HashMap<>();
+    private final Map<String, Long> count = new HashMap<>();
 
     public void build(int steps) {
         for (int i = 0; i < steps; i++) {
-            String[] symbols = template.split("");
             StringBuilder newTemplate = new StringBuilder();
-            for (int j = 0; j < symbols.length - 1; j++) {
-                newTemplate.append(symbols[j]);
-                String insertion = pairs.get(symbols[j] + symbols[j + 1]);
+            for (int j = 0; j < template.length() - 1; j++) {
+                newTemplate.append(template.charAt(j));
+                String insertion = pairs.get(template.substring(j, j + 2));
                 if (insertion != null) newTemplate.append(insertion);
-                if (j == symbols.length - 2) newTemplate.append(symbols[symbols.length - 1]);
+                if (j == template.length() - 2) newTemplate.append(template.substring(template.length() - 1));
             }
             template = newTemplate.toString();
-            log.info(template);
+            log.info("{}", template.length());
         }
     }
 
-    public int getMostMinusLeast() {
+    public long getMostMinusLeast() {
         countSymbols();
-        List<Integer> sortedCount = count.values().stream()
+        List<Long> sortedCount = count.values().stream()
                 .sorted().collect(Collectors.toList());
         return sortedCount.get(sortedCount.size() - 1) - sortedCount.get(0);
     }
 
     private void countSymbols() {
         Arrays.stream(template.split(""))
-                .forEach(s -> count.put(s, count.getOrDefault(s, 0) + 1));
+                .forEach(s -> count.put(s, count.getOrDefault(s, 0L) + 1));
 
     }
 }

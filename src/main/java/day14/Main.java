@@ -17,17 +17,22 @@ public class Main {
         // part 1
         PolymerBuilder polymerBuilder = deserialize(EXAMPLE);
         polymerBuilder.build(10);
-        int solution = polymerBuilder.getMostMinusLeast();
-        log.info("{}", solution);
-        assert solution == 1588;
+        long solution = polymerBuilder.getMostMinusLeast();
+        log.info("Example 1: {}", solution);
+        assert solution == 1588L;
 
+        polymerBuilder = deserialize(EXAMPLE);
+        polymerBuilder.build(40);
+        solution = polymerBuilder.getMostMinusLeast();
+        log.info("Example 2: {}", solution);
+        assert solution == 2188189693529L;
+
+        // part 2
         polymerBuilder = deserialize(INPUT);
         polymerBuilder.build(10);
         solution = polymerBuilder.getMostMinusLeast();
-        log.info("{}", solution);
-        assert solution == 2435;
-
-        // part 2
+        log.info("Example 2: {}", solution);
+        assert solution == 2435L;
 
     }
 
