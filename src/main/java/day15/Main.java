@@ -14,7 +14,7 @@ public class Main {
     private static final String EXAMPLE = "./src/main/resources/day15/example.txt";
 
     public static void main(String[] args) {
-        // example
+//        // example
 //        RouteFinder routeFinder = new RouteFinder(deserialize(EXAMPLE));
 //        routeFinder.find();
 //        log.info("Example 1: {}", routeFinder.getLowestRiskRoute());
