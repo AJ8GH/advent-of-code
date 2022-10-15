@@ -15,16 +15,13 @@ public class RouteFinder {
     public void find() {
         Position start = cave.get(0, 0);
         List<Position> positions = new ArrayList<>();
-        positions.add(start);
         Route route = new Route(positions);
         checkOptions(route);
     }
 
     private void checkOptions(Route route) {
         int total = route.getTotalRisk();
-        if (total >= lowestRiskRoute) {
-            return;
-        } else {
+        if (total < lowestRiskRoute) {
             if (isComplete(route)) {
                 lowestRiskRoute = total;
                 log.info("New lowest: {}", total);
