@@ -10,8 +10,8 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class Main {
-  private static final String INPUT = "./src/main/resources/io.github.aj8gh.aoc.y21.day15/input.txt";
-  private static final String EXAMPLE = "./src/main/resources/io.github.aj8gh.aoc.y21.day15/example.txt";
+  private static final String INPUT = "./src/main/resources/day15/input.txt";
+  private static final String EXAMPLE = "./src/main/resources/day15/example.txt";
 
   public static void main(String[] args) {
 
