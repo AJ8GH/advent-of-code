@@ -36,8 +36,7 @@ class NiceOMeterTest extends ReaderProvider {
 
   private static Stream<Arguments> inputProviderPart2() {
     return Stream.of(
-        Arguments.of(
-            List.of("qjhvhtzxzqqjkmpb", "xxyxx", "uurcxstgmygtbstg", "ieodomkazucvgmuy"), 2L),
+        Arguments.of(reader().getExample2(DAY_5).asStringList(), 2L),
         Arguments.of(reader().getInput(DAY_5).asStringList(), 51)
     );
   }

@@ -14,6 +14,7 @@ public class Reader {
   private static final Logger LOGGER = LoggerFactory.getLogger(Reader.class);
   private static final String INPUT = "day%s/input.txt";
   private static final String EXAMPLE = "day%s/example.txt";
+  private static final String EXAMPLE_2 = "day%s/example2.txt";
 
   private Stream<String> result = Stream.empty();
 
@@ -24,6 +25,11 @@ public class Reader {
 
   public Reader getExample(int day) {
     this.result = get(EXAMPLE, day);
+    return this;
+  }
+
+  public Reader getExample2(int day) {
+    this.result = get(EXAMPLE_2, day);
     return this;
   }
 
