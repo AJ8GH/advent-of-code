@@ -15,14 +15,14 @@ class AreaCalculatorTest extends ReaderProvider {
 
   @ParameterizedTest
   @MethodSource(value = "inputProviderPart1")
-  void calculatePaper(List<String> input, long expected) {
+  void calculatePaper(List<String> input, int expected) {
     var calculator = new AreaCalculator();
     assertEquals(expected, calculator.calculatePaper(input));
   }
 
   @ParameterizedTest
   @MethodSource(value = "inputProviderPart2")
-  void calculateRibbon(List<String> input, long expected) {
+  void calculateRibbon(List<String> input, int expected) {
     var calculator = new AreaCalculator();
     assertEquals(expected, calculator.calculateRibbon(input));
   }
