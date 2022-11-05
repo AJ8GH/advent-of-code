@@ -2,27 +2,46 @@ package io.github.aj8gh.aoc.y15.day2;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.ToIntFunction;
 
 public class AreaCalculator {
 
   private static final String DELIMITER = "x";
 
-  public long calculate(List<String> dimensions) {
+  public int calculatePaper(List<String> dimensions) {
+    return calculate(dimensions, this::getPaperArea);
+  }
+
+  public int calculateRibbon(List<String> dimensions) {
+    return calculate(dimensions, this::getRibbonLength);
+  }
+
+  private int calculate(List<String> dimensions, ToIntFunction<List<Integer>> function) {
     return dimensions.stream()
-        .map(line -> getArea(Arrays.stream(line.split(DELIMITER)).map(Integer::parseInt).toList()))
+        .map(line -> function.applyAsInt(Arrays.stream(line.split(DELIMITER))
+            .map(Integer::parseInt)
+            .toList()))
         .mapToInt(Integer::intValue)
         .reduce(0, Integer::sum);
   }
 
-  private int getArea(List<Integer> list) {
-    var l = list.get(0);
-    var w = list.get(1);
-    var h = list.get(2);
+  private int getPaperArea(List<Integer> list) {
+    var sides = getAreas(list);
+    return 2 * sides.stream().reduce(0, Integer::sum) + getArea(sides);
+  }
 
-    var side1 = l * w;
-    var side2 = w * h;
-    var side3 = h * l;
+  private int getRibbonLength(List<Integer> list) {
+    Integer volume = list.stream().reduce(1, (i, j) -> i * j);
+    var sorted = list.stream().sorted().toList();
+    var minPerim = 2 * (sorted.get(0) + sorted.get(1));
+    return minPerim + volume;
+  }
 
-    return 2 * (side1 + side2 + side3) + Math.min(side1, (Math.min(side2, side3)));
+  private List<Integer> getAreas(List<Integer> list) {
+    return List.of(list.get(0) * list.get(1), list.get(1) * list.get(2), list.get(2) * list.get(0));
+  }
+
+  private int getArea(List<Integer> ints) {
+    return Math.min(ints.get(0), Math.min(ints.get(1), ints.get(2)));
   }
 }
