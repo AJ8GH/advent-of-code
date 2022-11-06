@@ -27,7 +27,7 @@ public class AreaCalculator {
 
   private int getPaperArea(List<Integer> list) {
     var sides = getAreas(list);
-    return 2 * sides.stream().reduce(0, Integer::sum) + getArea(sides);
+    return 2 * sides.stream().reduce(0, Integer::sum) + getMin(sides);
   }
 
   private int getRibbonLength(List<Integer> list) {
@@ -38,10 +38,13 @@ public class AreaCalculator {
   }
 
   private List<Integer> getAreas(List<Integer> list) {
-    return List.of(list.get(0) * list.get(1), list.get(1) * list.get(2), list.get(2) * list.get(0));
+    return List.of(
+        list.get(0) * list.get(1),
+        list.get(1) * list.get(2),
+        list.get(2) * list.get(0));
   }
 
-  private int getArea(List<Integer> ints) {
+  private int getMin(List<Integer> ints) {
     return Math.min(ints.get(0), Math.min(ints.get(1), ints.get(2)));
   }
 }

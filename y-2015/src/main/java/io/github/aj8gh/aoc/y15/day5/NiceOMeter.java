@@ -6,10 +6,10 @@ import java.util.regex.Pattern;
 
 public class NiceOMeter {
   private final Pattern naughtyPattern = Pattern.compile("ab|cd|pq|xy");
-  private final Pattern vowelPatternP1 = Pattern.compile(".*[aeiou].*[aeiou].*[aeiou].*");
-  private final Pattern doublePatternP1 = Pattern.compile("(.)\\1");
-  private final Pattern repeatedDoublePatternP2 = Pattern.compile("(.{2})(.*)\\1");
-  private final Pattern sandwichPatternP2 = Pattern.compile("(.)(.)\\1");
+  private final Pattern vowelPattern = Pattern.compile(".*[aeiou].*[aeiou].*[aeiou].*");
+  private final Pattern doublePattern = Pattern.compile("(.)\\1");
+  private final Pattern repeatedDoublePattern = Pattern.compile("(.{2})(.*)\\1");
+  private final Pattern sandwichPattern = Pattern.compile("(.)(.)\\1");
 
   public long analysePart1(List<String> strings) {
     return analyse(strings, this::isNice);
@@ -25,14 +25,14 @@ public class NiceOMeter {
 
   private boolean isNice(String string) {
     var naughtMatcher = naughtyPattern.matcher(string);
-    var vowelMatcher = vowelPatternP1.matcher(string);
-    var doubleMatcher = doublePatternP1.matcher(string);
+    var vowelMatcher = vowelPattern.matcher(string);
+    var doubleMatcher = doublePattern.matcher(string);
     return !naughtMatcher.find() && vowelMatcher.find() && doubleMatcher.find();
   }
 
   private boolean isNicePart2(String string) {
-    var repetitionMatcher = repeatedDoublePatternP2.matcher(string);
-    var sandwichMatcher = sandwichPatternP2.matcher(string);
+    var repetitionMatcher = repeatedDoublePattern.matcher(string);
+    var sandwichMatcher = sandwichPattern.matcher(string);
     return repetitionMatcher.find() && sandwichMatcher.find();
   }
 }
