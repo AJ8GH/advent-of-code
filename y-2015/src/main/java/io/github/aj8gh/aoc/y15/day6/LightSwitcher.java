@@ -18,7 +18,7 @@ public class LightSwitcher {
     return process(instructions, this::convertPart2);
   }
 
-  public int process(List<String> instructions, BiFunction<String, Integer, Integer> converter) {
+  private int process(List<String> instructions, BiFunction<String, Integer, Integer> converter) {
     extract(instructions).forEach(row -> update(row, converter));
     return Arrays.stream(lights)
         .map(row -> Arrays.stream(row).reduce(0, Integer::sum))

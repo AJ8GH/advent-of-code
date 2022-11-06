@@ -15,14 +15,14 @@ class LightSwitcherTest extends ReaderProvider {
 
   @ParameterizedTest
   @MethodSource(value = "inputProviderPart1")
-  void processPart1(List<String> input, long expected) {
+  void processPart1(List<String> input, int expected) {
     var lightSwitcher = new LightSwitcher();
     assertEquals(expected, lightSwitcher.processPart1(input));
   }
 
   @ParameterizedTest
   @MethodSource(value = "inputProviderPart2")
-  void processPart2(List<String> input, long expected) {
+  void processPart2(List<String> input, int expected) {
     var lightSwitcher = new LightSwitcher();
     assertEquals(expected, lightSwitcher.processPart2(input));
   }
