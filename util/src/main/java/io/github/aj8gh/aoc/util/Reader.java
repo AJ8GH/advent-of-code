@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 import org.slf4j.Logger;
@@ -38,11 +39,11 @@ public class Reader {
   }
 
   public List<String> asStringList() {
-    return result.toList();
+    return new ArrayList<>(result.toList());
   }
 
   public List<Integer> asIntList() {
-    return result.map(Integer::parseInt).toList();
+    return new ArrayList<>(result.map(Integer::parseInt).toList());
   }
 
   private Stream<String> get(String file, int day) {

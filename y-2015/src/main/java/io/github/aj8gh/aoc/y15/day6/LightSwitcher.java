@@ -1,5 +1,7 @@
 package io.github.aj8gh.aoc.y15.day6;
 
+import static java.lang.Integer.parseInt;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.BiFunction;
@@ -35,10 +37,9 @@ public class LightSwitcher {
   }
 
   private void update(List<String> row, BiFunction<String, Integer, Integer> converter) {
-    var action = row.get(0);
-    for (int i = Integer.parseInt(row.get(1)); i <= Integer.parseInt(row.get(3)); i++) {
-      for (int j = Integer.parseInt(row.get(2)); j <= Integer.parseInt(row.get(4)); j++) {
-        lights[i][j] = converter.apply(action, lights[i][j]);
+    for (int i = parseInt(row.get(1)); i <= parseInt(row.get(3)); i++) {
+      for (int j = parseInt(row.get(2)); j <= parseInt(row.get(4)); j++) {
+        lights[i][j] = converter.apply(row.get(0), lights[i][j]);
       }
     }
   }

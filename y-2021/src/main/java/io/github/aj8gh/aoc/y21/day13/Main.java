@@ -11,8 +11,8 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class Main {
-    private static final String EXAMPLE = "./src/main/resources/io.github.aj8gh.aoc.y21.day13/example.txt";
-    private static final String INPUT = "./src/main/resources/io.github.aj8gh.aoc.y21.day13/input.txt";
+    private static final String EXAMPLE = "y-2021/src/main/resources/day13/example.txt";
+    private static final String INPUT = "y-2021/src/main/resources/day13/input.txt";
 
     private static final List<Fold> FOLDS = new ArrayList<>();
     private static final Set<Dot> DOTS = new HashSet<>();
