@@ -16,13 +16,27 @@ class CodeParserTest extends ReaderProvider {
   @MethodSource(value = "inputProviderPart1")
   void parsePart1(List<String> input, int expected) {
     var codeParser = new CodeParser();
-    assertEquals(expected, codeParser.parse(input));
+    assertEquals(expected, codeParser.parsePart1(input));
+  }
+
+  @ParameterizedTest
+  @MethodSource(value = "inputProviderPart2")
+  void parsePart2(List<String> input, int expected) {
+    var codeParser = new CodeParser();
+    assertEquals(expected, codeParser.parsePart2(input));
   }
 
   private static Stream<Arguments> inputProviderPart1() {
     return Stream.of(
         Arguments.of(reader().getExample(DAY_8).asStringList(), 12),
-        Arguments.of(reader().getInput(DAY_8).asStringList(), 0)
+        Arguments.of(reader().getInput(DAY_8).asStringList(), 1333)
+    );
+  }
+
+  private static Stream<Arguments> inputProviderPart2() {
+    return Stream.of(
+        Arguments.of(reader().getExample(DAY_8).asStringList(), 19),
+        Arguments.of(reader().getInput(DAY_8).asStringList(), 2046)
     );
   }
 }
