@@ -13,7 +13,7 @@ import java.util.Queue;
 import java.util.regex.Pattern;
 
 public class SignalProcessor {
-  private static final int MAX_16_BIT_INT = 65_536;
+  private static final int MAX_UNSIGNED_16_BIT_INT = (Short.MAX_VALUE + 1) * 2;
   private static final Pattern IS_NUMBER = Pattern.compile("^\\d+$");
   private final Map<String, Integer> results = new HashMap<>();
   private final Queue<String[]> queue = new ArrayDeque<>();
@@ -41,7 +41,7 @@ public class SignalProcessor {
     if (source.length == 1) {
       return toNumber(source[0]);
     } else if (source.length == 2 && results.containsKey(source[1])) {
-      return of(~results.get(source[1]) + MAX_16_BIT_INT);
+      return of(~results.get(source[1]) + MAX_UNSIGNED_16_BIT_INT);
     } else if (source.length == 3) {
       return toNumber(source[0]).flatMap(a -> toNumber(source[2])
           .map(b -> apply(a, source[1], b)));

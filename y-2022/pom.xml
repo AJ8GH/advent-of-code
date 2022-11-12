@@ -9,7 +9,7 @@
   </parent>
   <modelVersion>4.0.0</modelVersion>
 
-  <artifactId>y-2015</artifactId>
+  <artifactId>y-2022</artifactId>
 
   <properties>
     <maven.compiler.source>19</maven.compiler.source>
@@ -31,5 +31,4 @@
       <artifactId>junit-jupiter</artifactId>
     </dependency>
   </dependencies>
-
 </project>
