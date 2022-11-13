@@ -15,9 +15,8 @@ touch "${new_resources_dir}/example.txt"
 
 url="https://adventofcode.com/20${year}/day/${day}"
 
-#html=$(curl --cookie "session=${SESSION}" "${url}")
 md=$(node ./scripts/script.js "${year}" "${day}" "${SESSION}")
-echo "MD ----- >>>>> ${md}"
 echo "${md}" > "${new_resources_dir}/README.md"
+python ./scripts/script.py "${new_resources_dir}/README.md"
 
 curl --cookie "session=${SESSION}" "${url}/input" > "${new_resources_dir}/input.txt"
