@@ -6,6 +6,6 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class Fold {
-    private String axis;
-    private Integer point;
+  private String axis;
+  private Integer point;
 }

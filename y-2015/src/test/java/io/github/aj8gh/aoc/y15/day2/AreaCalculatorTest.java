@@ -2,14 +2,14 @@ package io.github.aj8gh.aoc.y15.day2;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import io.github.aj8gh.aoc.util.ReaderProvider;
+import io.github.aj8gh.aoc.util.InputProvider;
 import java.util.List;
 import java.util.stream.Stream;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-class AreaCalculatorTest extends ReaderProvider {
+class AreaCalculatorTest extends InputProvider {
 
   private static final int DAY_2 = 2;
 

@@ -10,7 +10,7 @@ with open(file, 'w') as f:
     for line in lines:
         if '--- Day' in line:
             do_write = True
-        if 'Answer:' in line:
+        if 'Answer:' in line or 'Shareon' in line:
             do_write = False
         if do_write:
             f.write(line)

@@ -5,6 +5,7 @@ import java.util.List;
 
 public class FishSimulator {
 
+  private static final String DELIMITER = ",";
   private static final int NUM_STATES = 9;
   private static final int NEW_BORN_STATE = 8;
   private static final int POST_BREED_STATE = 6;
@@ -16,8 +17,7 @@ public class FishSimulator {
     this.starterFish = starterFish;
   }
 
-  public long runSimulation(int days) {
-    System.out.println("RUNNING");
+  public long simulate(int days) {
     var fish = new long[NUM_STATES];
 
     starterFish.forEach(f -> ++fish[f]);

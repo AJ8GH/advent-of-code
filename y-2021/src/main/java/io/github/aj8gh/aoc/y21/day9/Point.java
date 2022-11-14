@@ -4,22 +4,17 @@ import lombok.Data;
 
 @Data
 public class Point {
-    private final int height;
-    private int x;
-    private int y;
+  private final int height;
+  private int pointX;
+  private int pointY;
 
-    public Point setX(int x) {
-        this.x = x;
-        return this;
-    }
+  public Point setPointX(int pointX) {
+    this.pointX = pointX;
+    return this;
+  }
 
-    public Point setY(int y) {
-        this.y = y;
-        return this;
-    }
-
-    @Override
-    public String toString() {
-        return String.valueOf(height);
-    }
+  public Point setPointY(int pointY) {
+    this.pointY = pointY;
+    return this;
+  }
 }

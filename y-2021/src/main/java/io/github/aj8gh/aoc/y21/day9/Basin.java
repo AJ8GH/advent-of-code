@@ -6,13 +6,13 @@ import lombok.Data;
 
 @Data
 public class Basin {
-    private final Set<Point> points = new HashSet<>();
+  private final Set<Point> points = new HashSet<>();
 
-    public boolean add(Point point) {
-        return points.add(point);
-    }
+  public boolean add(Point point) {
+    return points.add(point);
+  }
 
-    public Integer size() {
-        return points.size();
-    }
+  public Integer size() {
+    return points.size();
+  }
 }

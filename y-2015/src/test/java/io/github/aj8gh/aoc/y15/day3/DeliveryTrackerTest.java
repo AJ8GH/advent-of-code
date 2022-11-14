@@ -2,13 +2,13 @@ package io.github.aj8gh.aoc.y15.day3;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import io.github.aj8gh.aoc.util.ReaderProvider;
+import io.github.aj8gh.aoc.util.InputProvider;
 import java.util.stream.Stream;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-class DeliveryTrackerTest extends ReaderProvider {
+class DeliveryTrackerTest extends InputProvider {
 
   private static final int DAY_3 = 3;
 

@@ -10,75 +10,78 @@ import lombok.Getter;
 
 @Getter
 public class HeightMap {
-    private final List<List<Point>> map;
-    private final List<Point> lowPoints;
-    private final List<Basin> basins;
+  private final List<List<Point>> map;
+  private final List<Point> lowPoints;
+  private final List<Basin> basins;
 
-    private final int rows;
-    private final int columns;
+  private final int rows;
+  private final int columns;
 
-    public HeightMap(List<List<Point>> map) {
-        this.map = map;
-        this.lowPoints = new ArrayList<>();
-        this.basins = new ArrayList<>();
-        this.rows = map.size();
-        this.columns = map.get(0).size();
-    }
+  public HeightMap(List<List<Point>> map) {
+    this.map = map;
+    this.lowPoints = new ArrayList<>();
+    this.basins = new ArrayList<>();
+    this.rows = map.size();
+    this.columns = map.get(0).size();
+  }
 
-    public void findLowPoints() {
-        for (int y = 0; y < rows; y++) {
-            for (int x = 0; x < columns; x++){
-                Point point = getPoint(x, y);
-                Set<Point> neighbours = getNeighbours(point);
-                if (isLowPoint(point, neighbours)) lowPoints.add(point);
-            }
-        }
-    }
-
-    public void findBasins() {
-        for (Point point : lowPoints) {
-            Basin basin = new Basin();
-            exploreBasin(point, basin);
-            basins.add(basin);
-        }
-    }
-
-    private void exploreBasin(Point point, Basin basin) {
-        basin.add(point);
+  public void findLowPoints() {
+    for (int y = 0; y < rows; y++) {
+      for (int x = 0; x < columns; x++) {
+        Point point = getPoint(x, y);
         Set<Point> neighbours = getNeighbours(point);
-        for (Point neighbour : neighbours) {
-            if (neighbour.getHeight() > point.getHeight() && neighbour.getHeight() < 9) {
-                exploreBasin(neighbour, basin);
-            }
+        if (isLowPoint(point, neighbours)) {
+          lowPoints.add(point);
         }
+      }
     }
+  }
 
-    private Set<Point> getNeighbours(Point p) {
-        Set<Point> neighbours = new HashSet<>();
-        if (p.getX() < columns - 1) neighbours.add(getPoint(p.getX() + 1, p.getY()));
-        if (p.getY() < rows - 1) neighbours.add(getPoint(p.getX(), p.getY() + 1));
-        if (p.getX() > 0) neighbours.add(getPoint(p.getX() - 1, p.getY() ));
-        if (p.getY() > 0) neighbours.add(getPoint(p.getX(), p.getY() - 1));
-        return neighbours;
+  public void findBasins() {
+    for (Point point : lowPoints) {
+      Basin basin = new Basin();
+      exploreBasin(point, basin);
+      basins.add(basin);
     }
+  }
 
-    private boolean isLowPoint(Point point, Collection<Point> neighbours) {
-        return neighbours
-                .stream()
-                .filter(p -> p.getHeight() <= point.getHeight())
-                .collect(Collectors.toSet())
-                .isEmpty();
+  private void exploreBasin(Point point, Basin basin) {
+    basin.add(point);
+    Set<Point> neighbours = getNeighbours(point);
+    for (Point neighbour : neighbours) {
+      if (neighbour.getHeight() > point.getHeight() && neighbour.getHeight() < 9) {
+        exploreBasin(neighbour, basin);
+      }
     }
+  }
 
-    private Point getPoint(int x, int y) {
-        Point point = map.get(y).get(x);
-        return point.setX(x).setY(y);
+  private Set<Point> getNeighbours(Point p) {
+    Set<Point> neighbours = new HashSet<>();
+    if (p.getPointX() < columns - 1) {
+      neighbours.add(getPoint(p.getPointX() + 1, p.getPointY()));
     }
+    if (p.getPointY() < rows - 1) {
+      neighbours.add(getPoint(p.getPointX(), p.getPointY() + 1));
+    }
+    if (p.getPointX() > 0) {
+      neighbours.add(getPoint(p.getPointX() - 1, p.getPointY()));
+    }
+    if (p.getPointY() > 0) {
+      neighbours.add(getPoint(p.getPointX(), p.getPointY() - 1));
+    }
+    return neighbours;
+  }
 
-    @Override
-    public String toString() {
-        var sb = new StringBuilder("\n");
-        for (List<Point> row : map) sb.append(row).append("\n");
-        return sb.toString();
-    }
+  private boolean isLowPoint(Point point, Collection<Point> neighbours) {
+    return neighbours
+        .stream()
+        .filter(p -> p.getHeight() <= point.getHeight())
+        .collect(Collectors.toSet())
+        .isEmpty();
+  }
+
+  private Point getPoint(int x, int y) {
+    Point point = map.get(y).get(x);
+    return point.setPointX(x).setPointY(y);
+  }
 }

@@ -4,8 +4,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.stream.Stream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,37 +14,29 @@ public class Reader {
   private static final String INPUT = "day%s/input.txt";
   private static final String EXAMPLE = "day%s/example.txt";
   private static final String EXAMPLE_2 = "day%s/example2.txt";
+  private static final String EXAMPLE_3 = "day%s/example3.txt";
 
-  private Stream<String> result = Stream.empty();
-
-  public Reader getInput(int day) {
-    this.result = get(INPUT, day);
-    return this;
+  public Input getInput(int day) {
+    return new Input(getStream(INPUT, day));
   }
 
-  public Reader getExample(int day) {
-    this.result = get(EXAMPLE, day);
-    return this;
+  public Input getExample(int day) {
+    return new Input(getStream(EXAMPLE, day));
   }
 
-  public Reader getExample2(int day) {
-    this.result = get(EXAMPLE_2, day);
-    return this;
+  public Input get(int day, String fileName) {
+    return new Input(getStream(fileName, day));
   }
 
-  public String asString() {
-    return String.join("", result.toList());
+  public Input getExample2(int day) {
+    return new Input(getStream(EXAMPLE_2, day));
   }
 
-  public List<String> asStringList() {
-    return new ArrayList<>(result.toList());
+  public Input getExample3(int day) {
+    return new Input(getStream(EXAMPLE_3, day));
   }
 
-  public List<Integer> asIntList() {
-    return new ArrayList<>(result.map(Integer::parseInt).toList());
-  }
-
-  private Stream<String> get(String file, int day) {
+  private Stream<String> getStream(String file, int day) {
     try (var reader = getBufferedReader(String.format(file, day))) {
       return reader.lines().toList().stream();
     } catch (IOException e) {

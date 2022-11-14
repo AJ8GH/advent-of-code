@@ -1,6 +1,7 @@
 package io.github.aj8gh.aoc.y21.day14;
 
 import static java.util.stream.Collectors.groupingBy;
+import static java.util.stream.Collectors.toMap;
 
 import java.util.ArrayDeque;
 import java.util.Arrays;
@@ -11,16 +12,15 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class Polymer {
-
   private final Map<String, String> rules;
   private final String template;
   private final Map<String, Long> elementCount;
   private final Map<String, Long> polymerCount;
   private final Map<String, List<String>> insertionResults;
 
-  public Polymer(Map<String, String> rules, String template) {
-    this.rules = rules;
-    this.template = template;
+  public Polymer(List<String> input) {
+    this.rules = getRules(input.subList(2, input.size()));
+    this.template = input.get(0);
     this.elementCount = buildElementCount();
     this.polymerCount = buildPolymerCount();
     this.insertionResults = buildInsertionResults();
@@ -77,5 +77,11 @@ public class Polymer {
       map.put(e.getKey(), List.of(result1, result2));
     }
     return map;
+  }
+
+  private Map<String, String> getRules(List<String> input) {
+    return input.stream()
+        .map(line -> line.split(" -> "))
+        .collect(toMap(split -> split[0], split -> split[1]));
   }
 }

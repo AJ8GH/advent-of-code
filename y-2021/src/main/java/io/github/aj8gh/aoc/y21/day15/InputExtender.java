@@ -3,9 +3,7 @@ package io.github.aj8gh.aoc.y21.day15;
 public class InputExtender {
 
   public int[][] extend(int[][] input) {
-
     var newInput = new int[input.length * 5][input[0].length * 5];
-
     for (int i = 0; i < input.length; i++) {
       System.arraycopy(input[i], 0, newInput[i], 0, input[i].length);
     }

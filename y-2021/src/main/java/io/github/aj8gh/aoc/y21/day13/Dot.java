@@ -6,11 +6,11 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class Dot {
-    private int x;
-    private int y;
+  private int pointX;
+  private int pointY;
 
-    @Override
-    public String toString() {
-        return "#";
-    }
+  @Override
+  public String toString() {
+    return "#";
+  }
 }
