@@ -11,10 +11,10 @@ import org.slf4j.LoggerFactory;
 public class Reader {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(Reader.class);
-  private static final String INPUT = "day%s/input.txt";
-  private static final String EXAMPLE = "day%s/example.txt";
-  private static final String EXAMPLE_2 = "day%s/example2.txt";
-  private static final String EXAMPLE_3 = "day%s/example3.txt";
+  private static final String INPUT = "d%s/input.txt";
+  private static final String EXAMPLE = "d%s/example.txt";
+  private static final String EXAMPLE_2 = "d%s/example2.txt";
+  private static final String EXAMPLE_3 = "d%s/example3.txt";
 
   public Input getInput(int day) {
     return new Input(getStream(INPUT, day));
