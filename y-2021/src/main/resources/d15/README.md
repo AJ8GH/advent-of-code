@@ -169,9 +169,7 @@ Using the full map, _what is the lowest total risk of any path from the top left
 
 Your puzzle answer was `2927`.
 
-Both parts of this puzzle are complete! They provide two gold stars: \*\*
+Both parts of this puzzle are complete! They provide two gold stars: ⭐ ⭐
 
-At this point, you should [return to your Advent calendar](/2021) and try another puzzle.
 
-If you still want to see it, you can [get your puzzle input](15/input).
 

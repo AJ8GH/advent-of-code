@@ -59,7 +59,7 @@ public class SignalProcessor {
       case "OR" -> a | b;
       case "LSHIFT" -> a << b;
       case "RSHIFT" -> a >> b;
-      default -> -1;
+      default -> throw new IllegalArgumentException("Unknown operator " + operator);
     };
   }
 

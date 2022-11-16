@@ -16,16 +16,16 @@ public class Reader {
   private static final String EXAMPLE_2 = "d%s/example2.txt";
   private static final String EXAMPLE_3 = "d%s/example3.txt";
 
+  public Input get(int day, String fileName) {
+    return new Input(getStream(fileName, day));
+  }
+
   public Input getInput(int day) {
     return new Input(getStream(INPUT, day));
   }
 
   public Input getExample(int day) {
     return new Input(getStream(EXAMPLE, day));
-  }
-
-  public Input get(int day, String fileName) {
-    return new Input(getStream(fileName, day));
   }
 
   public Input getExample2(int day) {

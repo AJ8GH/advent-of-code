@@ -30,23 +30,8 @@ Run all tests:
 mvn test
 ```
 
-## Automation Scripts
+## CLI Utility
 
-`create.sh` script:
+`aoc` is a CLI utility tool for Advent of Code
 
-- Creates empty src package and resources directory containing input.txt and example.txt for given
-  year and day
-- Gets problem description from AOC website to create README
-- Gets input from AOC website to create input.txt
-
-Usage:
-
-```shell
-sh create.sh <year> <day>
-```
-
-E.g. for year 2022, day 1:
-
-```shell
-sh create.sh 22 1
-```
+See the [Documentation](cli/aoc-scripts/README.md) for more info

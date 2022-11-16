@@ -67,9 +67,7 @@ Apply _40_ steps of pair insertion to the polymer template and find the most and
 
 Your puzzle answer was `2587447599164`.
 
-Both parts of this puzzle are complete! They provide two gold stars: \*\*
+Both parts of this puzzle are complete! They provide two gold stars: ⭐ ⭐
 
-At this point, you should [return to your Advent calendar](/2021) and try another puzzle.
 
-If you still want to see it, you can [get your puzzle input](14/input).
 

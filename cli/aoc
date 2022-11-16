@@ -1,0 +1,128 @@
+#!/usr/bin/env zsh
+
+help='''
+  Help
+  ==================================================================================================
+  -O <ide>         Open         open project with given ide
+  -D <new-day>     New day      overrides DAY environment variable
+  -Y <new-year>    New year     overrides YEAR environment variable
+  -L <new-level>   New level    overrides LEVEL environment variable
+  -a <answer>      Submit       Submit parameter as answer. Accepts overrides D,Y,L
+  -o               Open         open project with default ide
+  -c               Create       create files and directories for current day. Accepts overrides D,Y,L
+  -s               Set          sets environment values with override values. Accepts overrides D,Y,L
+  -n               Next         advances to next level. Accepts flags d,y,l to advance to next year and/or day and/or level
+  -l               Level        combine with next to advance to next level, when advancing day and/or year
+  -d               Day          combine with next to advance to next day
+  -y               Year         combine with next to advance to next year
+  -e               Echo         echo current year, day and level to shell
+  -i               Install      install aoc cli executable
+  -u               Uninstall    uninstall aoc cli executable
+  -h               Help         show help
+'''
+
+BASE_DIR=$(dirname "${0}")
+WORK_DIR="${BASE_DIR}/aoc-scripts"
+source "${WORK_DIR}/.env"
+project_dir=${PROJECT_DIR}
+
+level_select=0
+day_select=0
+year_select=0
+set=0
+create=0
+next=0
+submit=0
+echo=0
+uninstall=0
+install=0
+open=0
+ide=''
+
+while getopts a:D:Y:L:O:dysncleuiho flag; do
+  case $flag in
+  D) day=${OPTARG} ;;
+  Y) year=${OPTARG} ;;
+  L) level=${OPTARG} ;;
+  l) level_select=1 ;;
+  d) day_select=1 ;;
+  y) year_select=1 ;;
+  c) create=1 ;;
+  n) next=1 ;;
+  s) set=1 ;;
+  e) echo=1 ;;
+  i) install=1 ;;
+  u) uninstall=1 ;;
+  h) echo "${help}" ;;
+  o) open=1 ;;
+  O)
+    ide=${OPTARG}
+    open=1
+    ;;
+  a)
+    answer=${OPTARG}
+    submit=1
+    ;;
+  *)
+    echo "Unknown arg ${OPTARG}"
+    ;;
+  esac
+done
+
+print_env() {
+  source "${WORK_DIR}/.env"
+  echo "You are currently on year ${YEAR}, day ${DAY}, level ${LEVEL}"
+}
+
+if [[ ${uninstall} == 1 ]]; then
+  sh "${WORK_DIR}/uninstall.sh"
+  if [[ $? == 0 ]]; then
+    echo "AoC successfully uninstalled"
+  else
+    echo "Problem uninstalling AoC"
+  fi
+fi
+
+if [[ ${install} == 1 ]]; then
+  sh "${WORK_DIR}/install.sh"
+  if [[ $? == 0 ]]; then
+    echo "AoC successfully installed"
+  else
+    echo "Problem installing AoC"
+  fi
+fi
+
+if [[ ${next} == 1 ]]; then
+  if [[ (${day_select} == 0 && ${year_select} == 0) ]]; then
+    level_select=1
+  fi
+  python "${WORK_DIR}/env_script.py" 1 'next' "${level_select}" "${day_select}" "${year_select}" "${WORK_DIR}"
+  mv "${WORK_DIR}/.env1" "${WORK_DIR}/.env"
+  print_env
+fi
+
+if [[ ${set} == 1 ]]; then
+  python "${WORK_DIR}/env_script.py" 1 'set' "${level}" "${day}" "${year}" "${WORK_DIR}"
+  mv "${WORK_DIR}/.env1" "${WORK_DIR}/.env"
+  print_env
+fi
+
+if [[ ${create} == 1 ]]; then
+  sh "${WORK_DIR}/create.sh" "${year}" "${day}"
+fi
+
+if [[ ${submit} == 1 ]]; then
+  sh "${WORK_DIR}/submit.sh" "${answer}" "${level}" "${year}" "${day}"
+fi
+
+if [[ ${echo} == 1 && ${set} != 1 && ${next} != 1 ]]; then
+  print_env
+fi
+
+if [[ ${open} == 1 ]]; then
+  if [[ -z ${ide}  ]]; then
+    ide=${IDE}
+  fi
+  echo "Opening AoC ..."
+  ${ide} "${project_dir}"
+fi

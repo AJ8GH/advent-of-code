@@ -30,9 +30,7 @@ How many total _feet of ribbon_ should they order?
 
 Your puzzle answer was `3737498`.
 
-Both parts of this puzzle are complete! They provide two gold stars: \*\*
+Both parts of this puzzle are complete! They provide two gold stars: ⭐ ⭐
 
-At this point, you should [return to your Advent calendar](/2015) and try another puzzle.
 
-If you still want to see it, you can [get your puzzle input](2/input).
 

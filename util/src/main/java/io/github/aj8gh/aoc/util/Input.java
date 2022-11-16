@@ -32,6 +32,11 @@ public class Input {
     return asNestedStringArray(delimiter)[0];
   }
 
+  public String[][] asNestedStringArray(String delimiter) {
+    return result.map(s -> Arrays.stream(s.split(delimiter)).toArray(String[]::new))
+        .toArray(String[][]::new);
+  }
+
   public List<List<String>> asNestedStringList(String delimiter) {
     return new ArrayList<>(result
         .map(s -> new ArrayList<>(Arrays.stream(s.split(delimiter)).toList()))
@@ -63,10 +68,5 @@ public class Input {
   public int[][] asNestedIntArray(String delimiter) {
     return result.map(s -> Arrays.stream(s.split(delimiter)).mapToInt(Integer::parseInt).toArray())
         .toArray(int[][]::new);
-  }
-
-  public String[][] asNestedStringArray(String delimiter) {
-    return result.map(s -> Arrays.stream(s.split(delimiter)).toArray(String[]::new))
-        .toArray(String[][]::new);
   }
 }

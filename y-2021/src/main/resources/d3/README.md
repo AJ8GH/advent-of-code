@@ -75,9 +75,7 @@ Use the binary numbers in your diagnostic report to calculate the oxygen generat
 
 Your puzzle answer was `1370737`.
 
-Both parts of this puzzle are complete! They provide two gold stars: \*\*
+Both parts of this puzzle are complete! They provide two gold stars: ⭐ ⭐
 
-At this point, you should [return to your Advent calendar](/2021) and try another puzzle.
 
-If you still want to see it, you can [get your puzzle input](3/input).
 

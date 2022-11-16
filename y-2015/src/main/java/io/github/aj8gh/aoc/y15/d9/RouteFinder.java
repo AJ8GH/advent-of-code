@@ -1,58 +1,53 @@
 package io.github.aj8gh.aoc.y15.d9;
 
-import static java.util.Comparator.comparingInt;
-
-import java.util.AbstractMap;
+import java.util.ArrayDeque;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.PriorityQueue;
 import java.util.Queue;
 
 public class RouteFinder {
+  private final Map<String, City> cityMap = new HashMap<>();
+  private final Queue<Pair<String, Integer>> queue = new ArrayDeque<>();
+  private int minDistance;
 
-  private final Map<String, Node> nodes = new HashMap<>();
-  private final Queue<Map.Entry<Node, Integer>> queue =
-      new PriorityQueue<>(comparingInt(e -> e.getKey().getDistance()));
-  private String first;
-  private String last;
+  public int find(List<List<String>> input) {
+    parse(input);
+    cityMap.values().forEach(this::explore);
+    return minDistance;
+  }
 
-  public int find(List<String> distances) {
-    buildNodes(distances);
-    queue.add(new AbstractMap.SimpleEntry<>(nodes.get(first), 0));
+  private void explore(City city) {
+    city.visited = true;
+    queue.addAll(city.connections);
     while (!queue.isEmpty()) {
-      var entry = queue.poll();
-      for (var node : entry.getKey().getNodes()) {
-        process(node, entry);
-      }
+      explore(city, queue.poll());
     }
-    return nodes.get(last).getDistance();
   }
 
-  private void buildNodes(List<String> distances) {
-    var splits = distances.stream()
-        .map(line -> line.split(" "))
-        .toList();
-
-    first = splits.get(0)[0];
-    last = splits.get(splits.size() - 1)[2];
-
-    for (String[] split : splits) {
-      nodes.computeIfAbsent(split[0], Node::new)
-          .addNode(nodes.computeIfAbsent(split[2], Node::new), Integer.parseInt(split[4]));
+  private void explore(City city, Pair<String, Integer> connection) {
+    var next = cityMap.get(connection.first);
+    if (next.isVisited()) {
+      return;
     }
-    nodes.get(first).setDistance(0);
+    next.distance = city.distance + connection.second;
+    if (cityMap.values().stream().allMatch(City::isVisited)
+        && (minDistance == 0 || next.distance < minDistance)) {
+      minDistance = next.distance;
+      cityMap.values().forEach(c -> {
+        c.visited = false;
+        c.distance = 0;
+      });
+    }
+    next.connections.forEach(c -> explore(next, c));
   }
 
-  private void process(Map.Entry<Node, Integer> current, Map.Entry<Node, Integer> previous) {
-    var currentNode = current.getKey();
-    if (currentNode.getNodesVisited() == 0
-        || currentNode.getNodesVisited() < previous.getKey().getNodesVisited()
-        || !previous.getKey().isVisited()) {
-      currentNode.setDistance(previous.getKey().getDistance() + current.getValue());
-      currentNode.setNodesVisited(previous.getKey().getNodesVisited() + 1);
+  private void parse(List<List<String>> input) {
+    for (var line : input) {
+      var city1 = cityMap.computeIfAbsent(line.get(0), k -> new City(line.get(0)));
+      var city2 = cityMap.computeIfAbsent(line.get(2), k -> new City(line.get(2)));
+      city1.addConnection(new Pair<>(city2.name, Integer.parseInt(line.get(4))));
+      city2.addConnection(new Pair<>(city1.name, Integer.parseInt(line.get(4))));
     }
-    previous.getKey().setVisited(true);
-    queue.addAll(currentNode.getNodes());
   }
 }

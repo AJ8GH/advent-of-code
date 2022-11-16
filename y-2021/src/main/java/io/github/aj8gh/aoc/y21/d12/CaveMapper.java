@@ -38,7 +38,8 @@ int visits;
 
 start [A, b]
 
-[
+L [start, A
+Q [b]
 
 for cave in connections
 

@@ -20,6 +20,6 @@ public class HashFinder {
         return i;
       }
     }
-    return -1;
+    throw new AssertionError("Hash not found");
   }
 }
