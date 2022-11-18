@@ -1,59 +1,41 @@
 #!/bin/zsh
 
-WORK_DIR=$(dirname "${0}")
-source "${WORK_DIR}/.env"
-
+work_dir=$(dirname "${0}")
 year=${1}
 day=${2}
-session="${SESSION}"
+src_path=${3}
+res_path=${4}
+
+session="${AOC_SESSION}"
 aoc_url="${AOC_URL}"
-project_dir="${PROJECT_DIR}"
-source_dir="${SOURCE_DIR}"
-resources_dir="${RESOURCES_DIR}"
-resources_year_subdir="${RESOURCES_YEAR_SUBDIR}"
-module="${MODULE_PREFIX}${YEAR}/"
-year_prefix="${YEAR_PREFIX}"
-day_prefix="${DAY_PREFIX}"
-input_file="${INPUT_FILE}"
-example_file="${EXAMPLE_FILE}"
+input_file="${AOC_INPUT_FILE}"
+example_file="${AOC_EXAMPLE_FILE}"
 
-if [[ -z ${day} ]]; then
-  day=${DAY}
-fi
+_create_directories() {
+  echo "Creating directories ..."
+  mkdir -p "${src_path}"
+  mkdir -p "${res_path}"
+}
 
-if [[ -z ${year} ]]; then
-  year=${YEAR}
-fi
+_create_example() {
+  echo "Creating ${example_file} ..."
+  touch "${res_path}${example_file}"
+}
 
-year_package="${year_prefix}${year}/"
-if [[ -z ${year_prefix} ]]; then
-  year_package="/"
-fi
+_create_readme() {
+  echo 'Parsing description into README.md ...'
+  md=$(node "${work_dir}/markdown.js" "${year}" "${day}" "${session}")
+  echo "${md}" >"${res_path}README.md"
+  python "${work_dir}/readme.py" "${res_path}/README.md"
+}
 
-day_package="${day_prefix}${day}/"
-if [[ -z ${day_prefix} ]]; then
-  day_package="d${day}/"
-fi
+_get_input() {
+  echo "Getting input from AoC website and creating ${input_file} ..."
+  url="${aoc_url}/20${year}/day/${day}"
+  curl --cookie "session=${session}" "${url}/input" >"${res_path}${input_file}"
+}
 
-new_resources_dir="${project_dir}${module}${resources_dir}${resources_year_subdir}${day_package}"
-new_package="${project_dir}${module}${source_dir}${year_package}${day_package}"
-
-echo "Creating package ${year_package}${day_package} ..."
-mkdir "${new_package}"
-
-echo "Creating 20${year} ${day_package} resources directory ..."
-mkdir "${new_resources_dir}"
-
-echo "Creating ${example_file} ..."
-touch "${new_resources_dir}${example_file}"
-
-echo 'Getting problem description from AoC website and converting to Markdown ...'
-md=$(node "${WORK_DIR}/script.js" "${year}" "${day}" "${session}")
-
-echo 'Creating README.md ...'
-echo "${md}" >"${new_resources_dir}/README.md"
-python "${WORK_DIR}/readme_script.py" "${new_resources_dir}/README.md"
-
-echo "Getting input from AoC website and creating ${input_file} ..."
-url="${aoc_url}/20${year}/day/${day}"
-curl --cookie "session=${session}" "${url}/input" >"${new_resources_dir}${input_file}"
+_create_directories
+_create_example
+_create_readme
+_get_input

@@ -1,9 +1,21 @@
 #!/bin/zsh
 
-BASE_DIR=$(readlink -f "$(dirname "${0}")")
-source "${BASE_DIR}/.env"
+base_dir=$(readlink -f "$(dirname "${0}")")
+env_dirname="${base_dir}/envs"
+source "${env_dirname}/current.env"
+source "${env_dirname}/${AOC_ENV_FILE}"
 
-install_dir=${INSTALL_DIR}
+_resolve_install_dir() {
+  install_dir=${AOC_INSTALL_DIR}
+  if [[ -z ${install_dir} ]]; then
+    install_dir='/usr/local/bin/'
+  fi
+}
 
-ln -s "${BASE_DIR}/../aoc" "${install_dir}"
-ln -s "${BASE_DIR}" "${install_dir}"
+_install() {
+  ln -s "${base_dir}/../aoc" "${install_dir}"
+  ln -s "${base_dir}" "${install_dir}"
+}
+
+_resolve_install_dir
+_install

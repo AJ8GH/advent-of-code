@@ -1,9 +1,12 @@
 #!/bin/zsh
 
-BASE_DIR=$(readlink -f "$(dirname "${0}")")
-source "${BASE_DIR}/.env"
+base_dir=$(readlink -f "$(dirname "${0}")")
+env_dir="${base_dir}/envs"
+source "${env_dir}/current.env"
+source "${env_dir}/${AOC_ENV_FILE}"
 
-install_dir=${INSTALL_DIR}
-
-rm "${install_dir}/aoc-scripts"
-rm "${install_dir}/aoc"
+_uninstall() {
+  install_dir=${AOC_INSTALL_DIR}
+  rm "${install_dir}/aoc-scripts"
+  rm "${install_dir}/aoc"
+}

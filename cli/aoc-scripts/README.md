@@ -10,19 +10,25 @@
 Create file `.env` in `aoc-scripts` directory with the following properties:
 
 ```
-export SESSION=<your-aoc-session-token>
-export YEAR=<year>
-export DAY=<day>
-export LEVEL=<level>
-export PROJECT_DIR=<location-of-aoc-project>
-export MODULE_DIR=<relative-path-to-module-dir-from-project-dir>
-export RESOURCES_DIR=<relative-path-to-resources-dir-from-module-dir>
-export SOURCE_DIR=<relative-path-to-source-dir-from-module-dir>
-export YEAR_PREFIX=<prefix-for-year-subdirectory>
-export DAY_PREFIX=<prefix-for-day-subdirectory>
+export AOC_SESSION=<your-aoc-session-token>
 export AOC_URL=<aoc-url>
+
+export AOC_YEAR=<year>
+export AOC_DAY=<day>
+export AOC_LEVEL=<level>
+
+export AOC_PROJECT_DIR=<location-of-aoc-project>
+export AOC_SRC_DIR=<src-directory-within-module>
+export AOC_RES_DIR=<resources-directory-within-module>
+export AOC_SRC_SUBDIR=<subdirectory-within-src-dir>
+export AOC_RES_SUBDIR=<subdirectory-within-resources-dir>
+
+export AOC_MODULE_PREFIX=<prefix-of-module>
+export AOC_SRC_YEAR_PREFIX=<prefix-for-year-package-in-source-dir>
+export AOC_RES_YEAR_PREFIX=<prefix-for-year-dir-in-resources-dir>
+export AOC_DAY_PREFIX=<prefix-for-day-subdirectory>
+
 export IDE=<ide-or-editor-to-open-project>
-export INSTALL_DIR=<install-location>
 ```
 
 ####  Note:
@@ -34,6 +40,7 @@ export INSTALL_DIR=<install-location>
   * Resources: `project-dir/module-dir/resources-dir/day-subdirectory/`
   * `year-subdirectory` == year-prefix{year}
   * `day-subdirectory` == day-prefix{day}
+  * `resources-subdirectory`: leave blank to omit resources subdirectory
   * `YEAR_PREFIX`: leave blank to omit year subdirectory
   * `DAY_PREFIX`: default value: `d`
 
@@ -57,7 +64,7 @@ _Uninstall_:
 
 `-a <answer>`
 
-_Submit_:
+_Answer_:
 * Submits parameter as answer for selected year, day and level
 ---
 
@@ -98,13 +105,8 @@ _Set_:
 `-n`
 
 _Next_:
-* Advances to the next level
-* Without parameters, advances one level, advancing the day if already on level 2, and advancing year if already on day 25, level 2
-* With `-y` parameter, advances one year, keeping day and level the same
-* With `-d` parameter, advances one day, keeping year and level the same unless day is 25, in which case year will advance by 1
-* With `-l` parameter, advances one level, keeping day and year the same unless level is 2, in which case day will advance by 1
+* Advances to the next day
 * `-y`, `-d` and `-l` can be combined to advance all or some of the fields, e.g. `aoc -nydl`
-* Using `-l` by itself, e.g. `aoc -nl` is unnecessary as this is the default behaviour of `-n`, but can be combined with `-y` and `-d` to force an advance of level
 ---
 
 `-O <ide>`
@@ -125,7 +127,14 @@ _Echo_:
 * Echoes current values for `YEAR`, `DAY` and `LEVEL` to the shell
 ---
 
+`-I`
+
+_Init_:
+* Initialises a new project
+* Set custom structure up via cli input
+---
+
 `-h`
 
 _Help_:
-* Show help
+* Shows help

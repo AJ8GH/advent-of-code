@@ -12,9 +12,7 @@ level_arg = sys.argv[3]
 day_arg = sys.argv[4]
 year_arg = sys.argv[5]
 work_dir = sys.argv[6]
-
-# print(sys.argv)
-
+env_file = sys.argv[7]
 
 def process():
     if too_high in response:
@@ -29,15 +27,14 @@ def process():
 
 def edit_env():
     on_next_day = day_arg == '1'
-    on_next_level = level_arg == '1'
     current_day = 0
     lines = []
 
-    f_in = open(f"{work_dir}/.env", "rt")
+    f_in = open(f"{env_file}", "rt")
     for line in f_in:
-        if 'LEVEL=2' in line or (action == 'next' and day_arg == '1'):
+        if ('AOC_LEVEL=2' in line and level_arg == '1') or (action == 'next' and day_arg == '1'):
             on_next_day = True
-        if 'DAY=' in line:
+        if 'AOC_DAY=' in line:
             current_day = int(re.findall(r'\d+', line)[0])
         lines.append(line)
     f_in.close()
@@ -45,13 +42,13 @@ def edit_env():
 
     # print(f'next day: {on_next_day}, next level: {on_next_level}, next year: {on_next_year}')
 
-    f_out = open(f"{work_dir}/.env1", "wt")
+    f_out = open(f"{work_dir}/envs/.env_temp", "wt")
     for line in lines:
-        if 'LEVEL=' in line:
+        if 'AOC_LEVEL=' in line:
             handle_level(f_out, line)
-        elif 'DAY=' in line:
+        elif 'AOC_DAY=' in line:
             handle_day(f_out, line, current_day, on_next_day)
-        elif 'YEAR=' in line:
+        elif 'AOC_YEAR=' in line:
             handle_year(f_out, line, on_next_year)
         else:
             f_out.write(line)
@@ -96,10 +93,10 @@ def next_level(f_out, line):
 
 
 def switch_level(f_out, line):
-    if 'LEVEL=1' in line:
-        f_out.write(line.replace('LEVEL=1', 'LEVEL=2'))
-    elif 'LEVEL=2' in line:
-        f_out.write(line.replace('LEVEL=2', 'LEVEL=1'))
+    if 'AOC_LEVEL=1' in line:
+        f_out.write(line.replace('AOC_LEVEL=1', 'AOC_LEVEL=2'))
+    elif 'AOC_LEVEL=2' in line:
+        f_out.write(line.replace('AOC_LEVEL=2', 'AOC_LEVEL=1'))
 
 
 def next_day(f_out, line, current_day, on_next_day):
@@ -119,15 +116,15 @@ def next_year(f_out, line, on_next_year):
 
 
 def set_level(f_out):
-    f_out.write(f'export LEVEL={level_arg}\n')
+    f_out.write(f'export AOC_LEVEL={level_arg}\n')
 
 
 def set_day(f_out):
-    f_out.write(f'export DAY={day_arg}\n')
+    f_out.write(f'export AOC_DAY={day_arg}\n')
 
 
 def set_year(f_out):
-    f_out.write(f'export YEAR={year_arg}\n')
+    f_out.write(f'export AOC_YEAR={year_arg}\n')
 
 
 process()
