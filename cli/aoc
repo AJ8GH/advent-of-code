@@ -24,6 +24,11 @@ help='''
   -h               Help         show help
 '''
 
+if [[ $# -eq 0 ]]; then
+  echo "${help}"
+  exit 0
+fi
+
 level_select=0
 day_select=0
 year_select=0
@@ -44,20 +49,6 @@ base_dir=''
 src_path=''
 res_path=''
 work_dir=''
-
-if [[ $# -eq 0 ]]; then
-  echo "${help}"
-  exit 0
-fi
-
-_source_env() {
-  work_dir="/usr/local/bin/aoc-scripts"
-  env_dir="${work_dir}/envs"
-  source "${env_dir}/current.env"
-  source "${env_dir}/${AOC_ENV_FILE}"
-}
-
-_source_env
 
 while getopts a:D:Y:L:O:E:Idysncleuihovr flag; do
   case $flag in
@@ -94,12 +85,20 @@ while getopts a:D:Y:L:O:E:Idysncleuihovr flag; do
   esac
 done
 
+_source_env() {
+  work_dir="/usr/local/bin/aoc-scripts"
+  env_dir="${work_dir}/envs"
+  source "${env_dir}/current.env"
+  source "${env_dir}/${AOC_ENV_FILE}"
+}
+
+_source_env
+
 _print_env() {
-  _source_env
   if [[ ${verbose} == 0 ]]; then
     echo "You are currently on year 20${AOC_YEAR} day ${AOC_DAY} level ${AOC_LEVEL}"
-    else
-      cat "${env_dir}/${AOC_ENV_FILE}"
+  else
+    cat "${env_dir}/${AOC_ENV_FILE}"
   fi
 }
 
@@ -196,7 +195,6 @@ _set() {
 }
 
 _create() {
-  _source_env
   _resolve_vars
   _build_dirs
   sh "${work_dir}/create.sh" "${year}" "${day}" "${src_path}" "${res_path}"
@@ -228,7 +226,6 @@ _open() {
 }
 
 _init() {
-  _source_env
   python "${work_dir}/init.py"
   _source_env
   source "${env_dir}/${AOC_ENV_FILE}"

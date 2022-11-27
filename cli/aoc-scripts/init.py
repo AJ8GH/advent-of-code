@@ -34,29 +34,32 @@ example_file = 'example.txt' if example_file == '' else example_file
 env = 'aoc' if env == '' else env
 ide = 'code' if ide == '' else ide
 
-out = f'''export AOC_SESSION={session}
+out = f'''# AOC #
+#######
+export AOC_SESSION={session}
 export AOC_URL=https://adventofcode.com
 
+# ENV #
+#######
+export AOC_ENV_FILE={env}.env
+export AOC_PROJECT_DIR={os.getcwd()}/{project}/
 export AOC_YEAR=15
 export AOC_DAY=1
 export AOC_LEVEL=1
+export AOC_IDE={ide}
 
-export AOC_PROJECT_DIR={os.getcwd()}/{project}/
+# DIR #
+#######
 export AOC_SRC_DIR={source}
 export AOC_RES_DIR={resource}
 export AOC_SRC_SUBDIR={inner_source}
 export AOC_RES_SUBDIR={inner_resource}
-
 export AOC_MODULE_PREFIX={module}
 export AOC_SRC_YEAR_PREFIX={src_year_prefix}
 export AOC_RES_YEAR_PREFIX={res_year_prefix}
 export AOC_DAY_PREFIX={day_prefix}
-
 export AOC_INPUT_FILE={input_file}
 export AOC_EXAMPLE_FILE={example_file}
-export AOC_ENV_FILE={env}.env
-
-export AOC_IDE={ide}
 '''
 
 with open(f'{work_dir}/envs/{env}.env', 'wt') as f:
