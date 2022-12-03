@@ -23,18 +23,18 @@
     <checkstyle.severity>warning</checkstyle.severity>
     <checkstyle.console>true</checkstyle.console>
     <checkstyle.fail>true</checkstyle.fail>
+    <guava.version>31.1-jre</guava.version>
     <jacoco.haltOnFailure>true</jacoco.haltOnFailure>
     <jacoco.target>0.8</jacoco.target>
     <jacoco.version>0.8.8</jacoco.version>
-    <lombok.maven.version>1.18.20.0</lombok.maven.version>
+    <junit.version>5.9.0</junit.version>
+    <lombok.version>1.18.24</lombok.version>
     <maven.checkstyle.version>3.2.0</maven.checkstyle.version>
     <maven.compiler.source>19</maven.compiler.source>
     <maven.compiler.target>19</maven.compiler.target>
     <maven.dependency.version>3.3.0</maven.dependency.version>
     <maven.surefire.version>3.0.0-M7</maven.surefire.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <junit.version>5.9.0</junit.version>
-    <lombok.version>1.18.24</lombok.version>
     <slf4j.version>2.0.3</slf4j.version>
   </properties>
 
@@ -168,6 +168,11 @@
         <groupId>org.projectlombok</groupId>
         <artifactId>lombok</artifactId>
         <version>${lombok.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.google.guava</groupId>
+        <artifactId>guava</artifactId>
+        <version>${guava.version}</version>
       </dependency>
       <dependency>
         <groupId>org.slf4j</groupId>

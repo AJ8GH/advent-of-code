@@ -22,6 +22,7 @@ help='''
   -u               Uninstall    uninstall aoc cli executable
   -v               Verbose      print more detail
   -h               Help         show help
+  -f               Files        create skeleton code files (use with create)
 '''
 
 level_select=0
@@ -39,6 +40,7 @@ open=0
 init=0
 env=0
 readme=0
+files=0
 ide=''
 base_dir=''
 src_path=''
@@ -59,7 +61,7 @@ _source_env() {
 
 _source_env
 
-while getopts a:D:Y:L:O:E:Idysncleuihovr flag; do
+while getopts a:D:Y:L:O:E:Idysncleuihovrf flag; do
   case $flag in
   D) day=${OPTARG} ;;
   Y) year=${OPTARG} ;;
@@ -73,6 +75,7 @@ while getopts a:D:Y:L:O:E:Idysncleuihovr flag; do
   e) echo=1 ;;
   i) install=1 ;;
   u) uninstall=1 ;;
+  f) files=1 ;;
   h) echo "${help}" ;;
   o) open=1 ;;
   v) verbose=1 ;;
@@ -98,8 +101,8 @@ _print_env() {
   _source_env
   if [[ ${verbose} == 0 ]]; then
     echo "You are currently on year 20${AOC_YEAR} day ${AOC_DAY} level ${AOC_LEVEL}"
-    else
-      cat "${env_dir}/${AOC_ENV_FILE}"
+  else
+    cat "${env_dir}/${AOC_ENV_FILE}"
   fi
 }
 
@@ -142,8 +145,10 @@ _build_dirs() {
   base_dir="${AOC_PROJECT_DIR}${module_dir}"
   day_dir="${AOC_DAY_PREFIX}${AOC_DAY}/"
   src_dir="${AOC_SRC_DIR}${src_year_dir}${day_dir}${src_subdir}"
+  test_dir="${AOC_TEST_DIR}${src_year_dir}${day_dir}${src_subdir}"
   res_dir="${AOC_RES_DIR}${res_year_dir}${day_dir}${res_subdir}"
   src_path="${base_dir}${src_dir}"
+  test_path="${base_dir}${test_dir}"
   res_path="${base_dir}${res_dir}"
 }
 
@@ -196,27 +201,36 @@ _set() {
 }
 
 _create() {
+  if [[ $1 == 1 ]]; then
+    files=1
+  fi
   _source_env
   _resolve_vars
   _build_dirs
-  sh "${work_dir}/create.sh" "${year}" "${day}" "${src_path}" "${res_path}"
+  sh "${work_dir}/create.sh" "${year}" "${day}" "${src_path}" "${res_path}" "${test_path}" "${files}"
 }
 
 _submit() {
   _resolve_vars
-  response=$(sh "${work_dir}/submit.sh" "${answer}" "${level}" "${year}" "${day}")
+  echo "Submitting answer ${answer} for ${year} day ${day} level ${level} ..."
+#  response=$(sh "${work_dir}/submit.sh" "${answer}" "${level}" "${year}" "${day}")
+  response="Congratulations, that's the correct answer!"
   _parse_result "${response}"
 }
 
 _parse_result() {
-  result=$(python "${work_dir}/env.py" "${response}" "submit" 1 0 0 "${work_dir}/aoc-scripts" "${AOC_ENV_FILE}")
+  _create 0 >/dev/null
+  result=$(python "${work_dir}/env.py" "${response}" "submit" 1 0 0 "${work_dir}" "${env_dir}/${AOC_ENV_FILE}")
+  echo "\n${result}\n"
   if [[ "${result}" == "Congratulations, that's the correct answer!" ]]; then
-    mv "${work_dir}/.env1" "${work_dir}/${AOC_ENV_FILE}"
+    mv "${env_dir}/.env_temp" "${env_dir}/${AOC_ENV_FILE}"
     _source_env
-    _create
-    echo "Next submission will be for ${AOC_YEAR} day ${AOC_DAY} level ${AOC_LEVEL}"
+    year=$AOC_YEAR
+    day=$AOC_DAY
+    level=$AOC_LEVEL
+    _create 1
+    echo "\nNext submission will be for 20${AOC_YEAR} day ${AOC_DAY} level ${AOC_LEVEL}"
   fi
-  echo "\n${result}"
 }
 
 _open() {

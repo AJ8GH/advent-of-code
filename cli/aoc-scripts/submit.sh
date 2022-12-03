@@ -11,7 +11,6 @@ aoc_url="${AOC_URL}"
 project_dir="${AOC_PROJECT_DIR}"
 
 _submit() {
-  echo "Submitting answer for ${year} day ${day} level ${level} ..."
   url="${aoc_url}/20${year}/day/${day}"
   curl --cookie "session=${session}" "${url}/answer" -X POST -d "level=${level}&answer=${answer}"
 }

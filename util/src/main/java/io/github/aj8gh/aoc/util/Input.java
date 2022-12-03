@@ -65,6 +65,24 @@ public class Input {
         .toList());
   }
 
+  public List<List<Integer>> asLineSeparatedIntList() {
+    var input = new ArrayList<List<Integer>>();
+
+    var innerList = new ArrayList<Integer>();
+    for (var s : result.toList()) {
+      if (s.isBlank()) {
+        input.add(innerList);
+        innerList = new ArrayList<>();
+      } else {
+        innerList.add(Integer.parseInt(s));
+      }
+    }
+    if (!innerList.isEmpty()) {
+      input.add(innerList);
+    }
+    return input;
+  }
+
   public int[][] asNestedIntArray(String delimiter) {
     return result.map(s -> Arrays.stream(s.split(delimiter)).mapToInt(Integer::parseInt).toArray())
         .toArray(int[][]::new);

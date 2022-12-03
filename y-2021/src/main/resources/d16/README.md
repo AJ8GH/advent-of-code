@@ -97,5 +97,4 @@ Here are a few more examples of hexadecimal-encoded transmissions:
 
 Decode the structure of your hexadecimal-encoded BITS transmission; _what do you get if you add up the version numbers in all packets?_
 
-To begin, [get your puzzle input](16/input).
 
