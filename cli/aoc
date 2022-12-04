@@ -213,8 +213,7 @@ _create() {
 _submit() {
   _resolve_vars
   echo "Submitting answer ${answer} for ${year} day ${day} level ${level} ..."
-#  response=$(sh "${work_dir}/submit.sh" "${answer}" "${level}" "${year}" "${day}")
-  response="Congratulations, that's the correct answer!"
+  response=$(sh "${work_dir}/submit.sh" "${answer}" "${level}" "${year}" "${day}")
   _parse_result "${response}"
 }
 
