@@ -1,4 +1,4 @@
-package io.github.aj8gh.aoc.y22.d5;
+package io.github.aj8gh.aoc.y22.d7;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -11,35 +11,35 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 @Disabled
-class Day5Test extends InputProvider {
+class Day7Test extends InputProvider {
 
   @ParameterizedTest
   @MethodSource(value = INPUT_PROVIDER_PART_1)
-  void part1(List<String> input, String expected) {
-    var day5 = new Day5();
-    var actual = day5.part1(input);
+  void part1(List<String> input, int expected) {
+    var day7 = new Day7();
+    var actual = day7.part1(input);
     assertEquals(expected, actual);
   }
 
   @ParameterizedTest
   @MethodSource(value = INPUT_PROVIDER_PART_2)
-  void part2(List<String> input, String expected) {
-   var day5 = new Day5();
-    var actual = day5.part2(input);
+  void part2(List<String> input, int expected) {
+   var day7 = new Day7();
+    var actual = day7.part2(input);
     assertEquals(expected, actual);
   }
 
   private static Stream<Arguments> inputProviderPart1() {
     return Stream.of(
-        Arguments.of(reader().getExample(DAY_5).asStringList(), "CMZ"),
-        Arguments.of(reader().getInput(DAY_5).asStringList(), "HNSNMTLHQ")
+        Arguments.of(reader().getExample(DAY_7).asStringList(), 0),
+        Arguments.of(reader().getInput(DAY_7).asStringList(), 0)
     );
   }
 
   private static Stream<Arguments> inputProviderPart2() {
     return Stream.of(
-        Arguments.of(reader().getExample(DAY_5).asStringList(), "MCD"),
-        Arguments.of(reader().getInput(DAY_5).asStringList(), "RNLFDJMCT")
+        Arguments.of(reader().getExample(DAY_7).asStringList(), 0),
+        Arguments.of(reader().getInput(DAY_7).asStringList(), 0)
     );
   }
 }

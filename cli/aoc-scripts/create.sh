@@ -45,6 +45,7 @@ package io.github.aj8gh.aoc.y${year}.d${day};
 import java.util.List;
 
 public class Day${day} {
+
   public int part1(List<String> input) {
     return 0;
   }
@@ -71,6 +72,7 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 class Day${day}Test extends InputProvider {
+
   @ParameterizedTest
   @MethodSource(value = INPUT_PROVIDER_PART_1)
   void part1(List<String> input, int expected) {
