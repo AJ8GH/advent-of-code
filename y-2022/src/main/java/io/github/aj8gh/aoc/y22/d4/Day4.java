@@ -6,11 +6,11 @@ import java.util.function.Predicate;
 
 public class Day4 {
   public int part1(List<String> input) {
-    return process(input, this::isFullyOverlapping);
+    return process(input, this::isContained);
   }
 
   public int part2(List<String> input) {
-    return process(input, this::isOverlappingAtAll);
+    return process(input, this::isOverlapping);
   }
 
   private int process(List<String> input, Predicate<List<List<Integer>>> predicate) {
@@ -22,15 +22,20 @@ public class Day4 {
         .count();
   }
 
-  private boolean isFullyOverlapping(List<List<Integer>> line) {
-    return (line.get(0).get(0) >= line.get(1).get(0) && line.get(0).get(1) <= line.get(1).get(1))
-        || (line.get(1).get(0) >= line.get(0).get(0) && line.get(1).get(1) <= line.get(0).get(1));
+  private boolean isContained(List<List<Integer>> line) {
+    return isContained(line.get(0), line.get(1)) || isContained(line.get(1), line.get(0));
   }
 
-  private boolean isOverlappingAtAll(List<List<Integer>> line) {
-    return (line.get(0).get(0) >= line.get(1).get(0) && line.get(0).get(0) <= line.get(1).get(1))
-        || (line.get(0).get(1) >= line.get(1).get(0) && line.get(0).get(1) <= line.get(1).get(1))
-        || (line.get(1).get(0) >= line.get(0).get(0) && line.get(1).get(0) <= line.get(0).get(1))
-        || (line.get(1).get(1) >= line.get(0).get(0) && line.get(1).get(1) <= line.get(0).get(1));
+  boolean isContained(List<Integer> l1, List<Integer> l2) {
+    return l1.get(0) >= l2.get(0) && l1.get(1) <= l2.get(1);
+  }
+
+  private boolean isOverlapping(List<List<Integer>> line) {
+    return isOverlapping(line.get(0), line.get(1)) || isOverlapping(line.get(1), line.get(0));
+  }
+
+  private boolean isOverlapping(List<Integer> l1, List<Integer> l2) {
+    return (l1.get(0) >= l2.get(0) && l1.get(0) <= l2.get(1))
+        || (l1.get(1) >= l2.get(0) && l1.get(1) <= l2.get(1));
   }
 }
