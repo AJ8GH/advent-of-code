@@ -28,15 +28,15 @@ class Day1Test extends InputProvider {
 
   private static Stream<Arguments> inputProviderPart1() {
     return Stream.of(
-        Arguments.of(reader().getExample(DAY_1).asLineSeparatedIntList(), 24000),
-        Arguments.of(reader().getInput(DAY_1).asLineSeparatedIntList(), 67622)
+        Arguments.of(reader().getExample(DAY_1).asLineSeparatedIntList(), 24_000),
+        Arguments.of(reader().getInput(DAY_1).asLineSeparatedIntList(), 67_622)
     );
   }
 
   private static Stream<Arguments> inputProviderPart2() {
     return Stream.of(
-        Arguments.of(reader().getExample(DAY_1).asLineSeparatedIntList(), 45000),
-        Arguments.of(reader().getInput(DAY_1).asLineSeparatedIntList(), 201491)
+        Arguments.of(reader().getExample(DAY_1).asLineSeparatedIntList(), 45_000),
+        Arguments.of(reader().getInput(DAY_1).asLineSeparatedIntList(), 201_491)
     );
   }
 }

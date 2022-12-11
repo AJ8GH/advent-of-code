@@ -1,4 +1,4 @@
-package io.github.aj8gh.aoc.y22.d2;
+package io.github.aj8gh.aoc.y22.d8;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -9,34 +9,35 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-class Day2Test extends InputProvider {
+class Day8Test extends InputProvider {
+
   @ParameterizedTest
   @MethodSource(value = INPUT_PROVIDER_PART_1)
   void part1(List<String> input, int expected) {
-    var day2 = new Day2();
-    var actual = day2.part1(input);
+    var day8 = new Day8();
+    var actual = day8.part1(input);
     assertEquals(expected, actual);
   }
 
   @ParameterizedTest
   @MethodSource(value = INPUT_PROVIDER_PART_2)
   void part2(List<String> input, int expected) {
-   var day2 = new Day2();
-    var actual = day2.part2(input);
+   var day8 = new Day8();
+    var actual = day8.part2(input);
     assertEquals(expected, actual);
   }
 
   private static Stream<Arguments> inputProviderPart1() {
     return Stream.of(
-        Arguments.of(reader().getExample(DAY_2).asStringList(), 15),
-        Arguments.of(reader().getInput(DAY_2).asStringList(), 13_005)
+        Arguments.of(reader().getExample(DAY_8).asStringList(), 0),
+        Arguments.of(reader().getInput(DAY_8).asStringList(), 0)
     );
   }
 
   private static Stream<Arguments> inputProviderPart2() {
     return Stream.of(
-        Arguments.of(reader().getExample(DAY_2).asStringList(), 12),
-        Arguments.of(reader().getInput(DAY_2).asStringList(), 11_373)
+        Arguments.of(reader().getExample(DAY_8).asStringList(), 0),
+        Arguments.of(reader().getInput(DAY_8).asStringList(), 0)
     );
   }
 }
