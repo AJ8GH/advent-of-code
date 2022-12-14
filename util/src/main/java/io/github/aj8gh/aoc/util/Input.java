@@ -59,6 +59,10 @@ public class Input {
     return asNestedIntArray(delimiter)[0];
   }
 
+  public List<List<Integer>> asNestedIntList() {
+    return asNestedIntList("");
+  }
+
   public List<List<Integer>> asNestedIntList(String delimiter) {
     return new ArrayList<>(result.map(s -> new ArrayList<>(Arrays.stream(s.split(delimiter))
             .map(Integer::parseInt).toList()))
@@ -81,6 +85,10 @@ public class Input {
       input.add(innerList);
     }
     return input;
+  }
+
+  public int[][] asNestedIntArray() {
+    return asNestedIntArray("");
   }
 
   public int[][] asNestedIntArray(String delimiter) {

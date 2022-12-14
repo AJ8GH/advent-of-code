@@ -13,23 +13,23 @@ public class Day7 {
   private static final Pattern DIR_NAME_PATTERN = Pattern.compile("\\$ cd (.+)");
   private static final Pattern FILE_SIZE_PATTERN = Pattern.compile("(^\\d+).+");
   private final DirectoryNode root = new DirectoryNode(ROOT_DIR);
-  private long actualSpaceRequired;
 
   public long part1(List<String> input) {
-    DirectoryNode currentDir = root;
-    for (var line : input) {
-      currentDir = processCommand(line, currentDir);
-    }
+    scanFileSystem(input);
     return getTotalSize(root);
   }
 
   public long part2(List<String> input) {
+    scanFileSystem(input);
+    var spaceToCreate = SPACE_REQUIRED - (TOTAL_SPACE - root.getRecursiveSize());
+    return getDirectoryToDelete(root, spaceToCreate, TOTAL_SPACE);
+  }
+
+  private void scanFileSystem(List<String> input) {
     DirectoryNode currentDir = root;
     for (var line : input) {
       currentDir = processCommand(line, currentDir);
     }
-    actualSpaceRequired = SPACE_REQUIRED - (TOTAL_SPACE - root.getRecursiveSize());
-    return getDirectoryToDelete(root, TOTAL_SPACE);
   }
 
   private DirectoryNode processCommand(String line, DirectoryNode currentDir) {
@@ -62,14 +62,14 @@ public class Day7 {
   private long getTotalSize(DirectoryNode dir) {
     var dirSize = dir.getRecursiveSize();
     return (dirSize > MAX_DIR_SIZE ? 0 : dirSize)
-        + dir.directories.stream().map(this::getTotalSize).reduce(0L, Long::sum);
+        + dir.subDirectories.stream().map(this::getTotalSize).reduce(0L, Long::sum);
   }
 
-  private long getDirectoryToDelete(DirectoryNode dir, long minDir) {
+  private long getDirectoryToDelete(DirectoryNode dir, long spaceToCreate,  long minDir) {
     var dirSize = dir.getRecursiveSize();
-    final var finalMin = dirSize >= actualSpaceRequired ? Math.min(minDir, dirSize) : minDir;
-    return dir.directories.stream()
-        .map(d -> getDirectoryToDelete(d, finalMin))
+    final var finalMin = dirSize >= spaceToCreate ? Math.min(minDir, dirSize) : minDir;
+    return dir.subDirectories.stream()
+        .map(d -> getDirectoryToDelete(d, spaceToCreate, finalMin))
         .min(Long::compareTo).orElse(finalMin);
   }
 }

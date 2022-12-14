@@ -5,7 +5,7 @@ import java.util.Set;
 
 public class DirectoryNode {
 
-  final Set<DirectoryNode> directories = new HashSet<>();
+  final Set<DirectoryNode> subDirectories = new HashSet<>();
   final String name;
   DirectoryNode parent;
   long sizeOfFiles;
@@ -15,7 +15,7 @@ public class DirectoryNode {
   }
 
   public void addDir(DirectoryNode dir) {
-    directories.add(dir);
+    subDirectories.add(dir);
   }
 
   public void addFile(long size) {
@@ -23,7 +23,7 @@ public class DirectoryNode {
   }
 
   public long getRecursiveSize() {
-    return sizeOfFiles + directories.stream()
+    return sizeOfFiles + subDirectories.stream()
         .map(DirectoryNode::getRecursiveSize)
         .reduce(0L, Long::sum);
   }
