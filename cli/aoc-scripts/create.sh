@@ -20,7 +20,8 @@ _create_directories() {
 }
 
 _create_example() {
-  touch "${res_path}${example_file}"
+  example=$(python "${work_dir}/example.py" "${res_path}README.md")
+  echo "$example" >"${res_path}${example_file}"
 }
 
 _create_readme() {
@@ -36,8 +37,6 @@ _get_input() {
 
 _create_files() {
   src_file="${src_path}Day${day}.java"
-  echo $src_file
-  echo $SRC_CODE
   if [[ ! -f "${src_file}" ]]; then
     cat >"${src_file}" <<EOL
 package io.github.aj8gh.aoc.y${year}.d${day};
@@ -84,22 +83,23 @@ class Day${day}Test extends InputProvider {
   @ParameterizedTest
   @MethodSource(value = INPUT_PROVIDER_PART_2)
   void part2(List<String> input, int expected) {
-   var day${day} = new Day${day}();
+    var day${day} = new Day${day}();
     var actual = day${day}.part2(input);
     assertEquals(expected, actual);
   }
 
   private static Stream<Arguments> inputProviderPart1() {
-    return Stream.of(
-        Arguments.of(reader().getExample(DAY_${day}).asStringList(), 0),
-        Arguments.of(reader().getInput(DAY_${day}).asStringList(), 0)
-    );
+    return getInput(0, 0);
   }
 
   private static Stream<Arguments> inputProviderPart2() {
+    return getInput(0, 0);
+  }
+
+  private static Stream<Arguments> getInput(int example, int result) {
     return Stream.of(
-        Arguments.of(reader().getExample(DAY_${day}).asStringList(), 0),
-        Arguments.of(reader().getInput(DAY_${day}).asStringList(), 0)
+        Arguments.of(reader().getExample(DAY_${day}).asStringList(), example),
+        Arguments.of(reader().getInput(DAY_${day}).asStringList(), result)
     );
   }
 }
@@ -109,8 +109,8 @@ EOL
 
 echo "Creating files for 20${year} day ${day}..."
 _create_directories
-_create_example
 _create_readme
+_create_example
 _get_input
 
 if [[ ${create_skeleton_code} == 1 ]]; then

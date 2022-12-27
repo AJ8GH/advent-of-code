@@ -21,7 +21,7 @@ class Day2Test extends InputProvider {
   @ParameterizedTest
   @MethodSource(value = INPUT_PROVIDER_PART_2)
   void part2(List<String> input, int expected) {
-   var day2 = new Day2();
+    var day2 = new Day2();
     var actual = day2.part2(input);
     assertEquals(expected, actual);
   }

@@ -22,22 +22,23 @@ class Day11Test extends InputProvider {
   @ParameterizedTest
   @MethodSource(value = INPUT_PROVIDER_PART_2)
   void part2(List<String> input, long expected) {
-   var day11 = new Day11();
+    var day11 = new Day11();
     var actual = day11.part2(input);
     assertEquals(expected, actual);
   }
 
   private static Stream<Arguments> inputProviderPart1() {
-    return Stream.of(
-        Arguments.of(reader().getExample(DAY_11).asStringList(), 10_605L),
-        Arguments.of(reader().getInput(DAY_11).asStringList(), 117_624L)
-    );
+    return getInput(10_605L, 117_624L);
   }
 
   private static Stream<Arguments> inputProviderPart2() {
+    return getInput(2_713_310_158L, 16_792_940_265L);
+  }
+
+  private static Stream<Arguments> getInput(long example, long result) {
     return Stream.of(
-        Arguments.of(reader().getExample(DAY_11).asStringList(), 2_713_310_158L),
-        Arguments.of(reader().getInput(DAY_11).asStringList(), 16_792_940_265L)
+        Arguments.of(reader().getExample(DAY_11).asStringList(), example),
+        Arguments.of(reader().getInput(DAY_11).asStringList(), result)
     );
   }
 }

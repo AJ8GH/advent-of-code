@@ -14,6 +14,7 @@ year_arg = sys.argv[5]
 work_dir = sys.argv[6]
 env_file = sys.argv[7]
 
+
 def process():
     if too_high in response:
         print(too_high)

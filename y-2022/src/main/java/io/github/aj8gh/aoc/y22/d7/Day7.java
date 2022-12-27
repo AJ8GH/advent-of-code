@@ -65,7 +65,7 @@ public class Day7 {
         + dir.subDirectories.stream().map(this::getTotalSize).reduce(0L, Long::sum);
   }
 
-  private long getDirectoryToDelete(DirectoryNode dir, long spaceToCreate,  long minDir) {
+  private long getDirectoryToDelete(DirectoryNode dir, long spaceToCreate, long minDir) {
     var dirSize = dir.getRecursiveSize();
     final var finalMin = dirSize >= spaceToCreate ? Math.min(minDir, dirSize) : minDir;
     return dir.subDirectories.stream()
