@@ -7,6 +7,9 @@ src_path=${3}
 res_path=${4}
 test_path=${5}
 create_skeleton_code=${6}
+force=${7}
+readme=${8}
+example_answer=${9}
 
 session="${AOC_SESSION}"
 aoc_url="${AOC_URL}"
@@ -20,19 +23,27 @@ _create_directories() {
 }
 
 _create_example() {
-  example=$(python "${work_dir}/example.py" "${res_path}README.md")
-  echo "$example" >"${res_path}${example_file}"
+  example="${work_dir}/example.py"
+  if [[ $force == 1 || ! -f "${example}" ]]; then
+    example=$(python "${example}" "${res_path}README.md")
+    echo "$example" >"${res_path}${example_file}"
+  fi
 }
 
 _create_readme() {
-  md=$(node "${work_dir}/markdown.js" "${year}" "${day}" "${session}")
-  echo "${md}" >"${res_path}README.md"
-  python "${work_dir}/readme.py" "${res_path}/README.md"
+  if [[ $readme == 1 ]]; then
+    md=$(node "${work_dir}/markdown.js" "${year}" "${day}" "${session}")
+    echo "${md}" >"${res_path}README.md"
+    python "${work_dir}/readme.py" "${res_path}/README.md"
+  fi
 }
 
 _get_input() {
-  url="${aoc_url}/20${year}/day/${day}"
-  curl --cookie "session=${session}" "${url}/input" >"${res_path}${input_file}"
+  input="${res_path}${input_file}"
+  if [[ $force == 1 || ! -f "${input}" ]]; then
+    url="${aoc_url}/20${year}/day/${day}"
+    curl --cookie "session=${session}" "${url}/input" >"${input}"
+  fi
 }
 
 _create_files() {
@@ -115,4 +126,9 @@ _get_input
 
 if [[ ${create_skeleton_code} == 1 ]]; then
   _create_files
+fi
+
+if [[ ${example_answer} == 1 ]]; then
+  python "${work_dir}/answer.py" "${res_path}README.md" "${test_path}Day${day}Test.java"
+  mv "${test_path}Day${day}Test.java1" "${test_path}Day${day}Test.java"
 fi

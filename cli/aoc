@@ -41,6 +41,7 @@ init=0
 env=0
 readme=0
 files=0
+force=0
 ide=''
 base_dir=''
 src_path=''
@@ -61,7 +62,7 @@ _source_env() {
 
 _source_env
 
-while getopts a:D:Y:L:O:E:Idysncleuihovrf flag; do
+while getopts a:D:Y:L:O:E:IFxdysncleuihovrf flag; do
   case $flag in
   D) day=${OPTARG} ;;
   Y) year=${OPTARG} ;;
@@ -76,7 +77,9 @@ while getopts a:D:Y:L:O:E:Idysncleuihovrf flag; do
   i) install=1 ;;
   u) uninstall=1 ;;
   f) files=1 ;;
+  F) force=1 ;;
   h) echo "${help}" ;;
+  x) example=1 ;;
   o) open=1 ;;
   v) verbose=1 ;;
   r) readme=1 ;;
@@ -201,13 +204,15 @@ _set() {
 }
 
 _create() {
-  if [[ $1 == 1 ]]; then
-    files=1
-  fi
+    files=$1
+    force=$2
+    readme=$3
+    example=$4
+
   _source_env
   _resolve_vars
-  _build_dirs
-  sh "${work_dir}/create.sh" "${year}" "${day}" "${src_path}" "${res_path}" "${test_path}" "${files}"
+    _build_dirs
+  sh "${work_dir}/create.sh" "${year}" "${day}" "${src_path}" "${res_path}" "${test_path}" "${files}" "${force}" "${readme}" "${example}"
 }
 
 _submit() {
@@ -227,7 +232,7 @@ _parse_result() {
     year=$AOC_YEAR
     day=$AOC_DAY
     level=$AOC_LEVEL
-    _create 1
+    _create 1 0 1 1
     echo "\nNext submission will be for 20${AOC_YEAR} day ${AOC_DAY} level ${AOC_LEVEL}"
   fi
 }
@@ -269,7 +274,7 @@ if [[ ${set} == 1 ]]; then
 fi
 
 if [[ ${create} == 1 ]]; then
-  _create
+  _create "$files" "$force" "$readme" "$example"
 fi
 
 if [[ ${submit} == 1 ]]; then

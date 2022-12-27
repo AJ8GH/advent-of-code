@@ -5,12 +5,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import io.github.aj8gh.aoc.util.InputProvider;
 import java.util.List;
 import java.util.stream.Stream;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 class Day12Test extends InputProvider {
 
+  @Disabled
   @ParameterizedTest
   @MethodSource(value = INPUT_PROVIDER_PART_1)
   void part1(List<String> input, int expected) {
@@ -19,6 +21,7 @@ class Day12Test extends InputProvider {
     assertEquals(expected, actual);
   }
 
+  @Disabled
   @ParameterizedTest
   @MethodSource(value = INPUT_PROVIDER_PART_2)
   void part2(List<String> input, int expected) {
@@ -28,7 +31,7 @@ class Day12Test extends InputProvider {
   }
 
   private static Stream<Arguments> inputProviderPart1() {
-    return getInput(0, 0);
+    return getInput(31, 0);
   }
 
   private static Stream<Arguments> inputProviderPart2() {
