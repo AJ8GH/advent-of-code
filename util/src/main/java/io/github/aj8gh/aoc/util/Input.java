@@ -95,4 +95,8 @@ public class Input {
     return result.map(s -> Arrays.stream(s.split(delimiter)).mapToInt(Integer::parseInt).toArray())
         .toArray(int[][]::new);
   }
+
+  public char[][] asNestedCharArray() {
+    return result.map(String::toCharArray).toArray(char[][]::new);
+  }
 }

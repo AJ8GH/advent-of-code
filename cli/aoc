@@ -146,7 +146,7 @@ _build_dirs() {
   fi
 
   base_dir="${AOC_PROJECT_DIR}${module_dir}"
-  day_dir="${AOC_DAY_PREFIX}${AOC_DAY}/"
+  day_dir="${AOC_DAY_PREFIX}${day}/"
   src_dir="${AOC_SRC_DIR}${src_year_dir}${day_dir}${src_subdir}"
   test_dir="${AOC_TEST_DIR}${src_year_dir}${day_dir}${src_subdir}"
   res_dir="${AOC_RES_DIR}${res_year_dir}${day_dir}${res_subdir}"
@@ -204,15 +204,15 @@ _set() {
 }
 
 _create() {
-    files=$1
-    force=$2
-    readme=$3
-    example=$4
+  files=$1
+  force=$2
+  readme=$3
+  example=$4
 
   _source_env
   _resolve_vars
-    _build_dirs
-  sh "${work_dir}/create.sh" "${year}" "${day}" "${src_path}" "${res_path}" "${test_path}" "${files}" "${force}" "${readme}" "${example}"
+  _build_dirs
+  sh "${work_dir}/create.sh" "${year}" "${day}" "${src_path}" "${res_path}" "${test_path}" "${files}" "${force}" "${readme}" "${example}" "${level}"
 }
 
 _submit() {
@@ -223,7 +223,7 @@ _submit() {
 }
 
 _parse_result() {
-  _create 0 >/dev/null
+  _create 0 0 1 0 >/dev/null
   result=$(python "${work_dir}/env.py" "${response}" "submit" 1 0 0 "${work_dir}" "${env_dir}/${AOC_ENV_FILE}")
   echo "\n${result}\n"
   if [[ "${result}" == "Congratulations, that's the correct answer!" ]]; then

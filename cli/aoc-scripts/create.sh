@@ -10,6 +10,7 @@ create_skeleton_code=${6}
 force=${7}
 readme=${8}
 example_answer=${9}
+level=${10}
 
 session="${AOC_SESSION}"
 aoc_url="${AOC_URL}"
@@ -23,16 +24,17 @@ _create_directories() {
 }
 
 _create_example() {
-  example="${work_dir}/example.py"
+  example="${res_path}${example_file}"
   if [[ $force == 1 || ! -f "${example}" ]]; then
-    example=$(python "${example}" "${res_path}README.md")
-    echo "$example" >"${res_path}${example_file}"
+    text=$(python "${work_dir}/example.py" "${res_path}README.md")
+    echo "$text" >"${example}"
   fi
 }
 
 _create_readme() {
   if [[ $readme == 1 ]]; then
     md=$(node "${work_dir}/markdown.js" "${year}" "${day}" "${session}")
+    echo "$md"
     echo "${md}" >"${res_path}README.md"
     python "${work_dir}/readme.py" "${res_path}/README.md"
   fi
@@ -77,25 +79,33 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import io.github.aj8gh.aoc.util.InputProvider;
 import java.util.List;
 import java.util.stream.Stream;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+@Disabled
 class Day${day}Test extends InputProvider {
+
+  private Day${day} classUnderTest;
+
+  @BeforeEach
+  void setUp() {
+    classUnderTest = new Day${day}();
+  }
 
   @ParameterizedTest
   @MethodSource(value = INPUT_PROVIDER_PART_1)
   void part1(List<String> input, int expected) {
-    var day${day} = new Day${day}();
-    var actual = day${day}.part1(input);
+    var actual = classUnderTest.part1(input);
     assertEquals(expected, actual);
   }
 
   @ParameterizedTest
   @MethodSource(value = INPUT_PROVIDER_PART_2)
   void part2(List<String> input, int expected) {
-    var day${day} = new Day${day}();
-    var actual = day${day}.part2(input);
+    var actual = classUnderTest.part2(input);
     assertEquals(expected, actual);
   }
 
@@ -129,6 +139,6 @@ if [[ ${create_skeleton_code} == 1 ]]; then
 fi
 
 if [[ ${example_answer} == 1 ]]; then
-  python "${work_dir}/answer.py" "${res_path}README.md" "${test_path}Day${day}Test.java"
+  python "${work_dir}/answer.py" "${res_path}README.md" "${test_path}Day${day}Test.java" "${level}"
   mv "${test_path}Day${day}Test.java1" "${test_path}Day${day}Test.java"
 fi
