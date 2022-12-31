@@ -20,7 +20,6 @@ class Day9Test extends InputProvider {
     assertEquals(expected, actual);
   }
 
-  @Disabled("Needs fixing")
   @ParameterizedTest
   @MethodSource(value = INPUT_PROVIDER_PART_2)
   void part2(List<String> input, int expected) {
@@ -40,6 +39,7 @@ class Day9Test extends InputProvider {
     return Stream.of(
         Arguments.of(reader().getExample(DAY_9).asStringList(), 1),
         Arguments.of(reader().getExample2(DAY_9).asStringList(), 36),
+        Arguments.of(reader().getExample3(DAY_9).asStringList(), 10),
         Arguments.of(reader().getInput(DAY_9).asStringList(), 2531)
     );
   }
