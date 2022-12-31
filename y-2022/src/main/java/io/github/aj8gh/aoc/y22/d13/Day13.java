@@ -28,11 +28,8 @@ public class Day13 {
 
   public int part2(List<String> input) {
     input.addAll(DIVIDER_PACKETS);
-    var tree = toNodes(input);
-    tree.sort(Node::compareTo);
-
     return toNodes(DIVIDER_PACKETS).stream()
-        .map(n -> binarySearch(tree, n) + 1)
+        .map(n -> binarySearch(toNodes(input).stream().sorted(Node::compareTo).toList(), n) + 1)
         .reduce(1, (a, b) -> a * b);
   }
 

@@ -27,7 +27,6 @@ public class Node implements Comparable<Node> {
       }
       return size() - other.size();
     }
-
     return toArrayNode().compareTo(other.toArrayNode());
   }
 
@@ -52,10 +51,5 @@ public class Node implements Comparable<Node> {
       this.val = JsonNodeFactory.instance.arrayNode().add(val);
     }
     return this;
-  }
-
-  @Override
-  public String toString() {
-    return val.toString();
   }
 }
