@@ -1,10 +1,10 @@
 package io.github.aj8gh.aoc.y22.d12;
 
 import java.nio.CharBuffer;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.PriorityQueue;
 import java.util.Queue;
 
 public class Day12 {
@@ -13,8 +13,14 @@ public class Day12 {
   private static final char END = 'E';
   private static final char A = 'a';
   private static final int MAX_DIFF = -1;
+  private static final List<List<Integer>> DIFFS = List.of(
+      List.of(0, -1),
+      List.of(-1, 0),
+      List.of(1, 0),
+      List.of(0, 1)
+  );
 
-  private final Queue<Node> queue = new PriorityQueue<>();
+  private final Queue<Node> queue = new ArrayDeque<>();
   private final List<Node> possibleStarts = new ArrayList<>();
   private Node startNode;
   private Node endNode;
@@ -43,19 +49,16 @@ public class Day12 {
 
     while (!queue.isEmpty()) {
       var node = queue.poll();
-      explore(node, 0, -1);
-      explore(node, -1, 0);
-      explore(node, 1, 0);
-      explore(node, 0, 1);
+      DIFFS.forEach(diff -> explore(node, diff));
     }
-    if (endNode.total != 0) {
+    if (endNode.total > 0) {
       minRoute = Math.min(minRoute, endNode.total);
     }
   }
 
-  private void explore(Node prev, int diffI, int diffJ) {
-    int newI = prev.row + diffI;
-    int newJ = prev.col + diffJ;
+  private void explore(Node prev, List<Integer> diff) {
+    int newI = prev.row + diff.get(0);
+    int newJ = prev.col + diff.get(1);
 
     if (newI >= 0 && newJ >= 0 && newI < nodes.length && newJ < nodes[newI].length) {
       var node = nodes[newI][newJ];

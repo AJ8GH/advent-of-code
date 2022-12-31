@@ -27,6 +27,7 @@
     <jacoco.haltOnFailure>true</jacoco.haltOnFailure>
     <jacoco.target>0.8</jacoco.target>
     <jacoco.version>0.8.8</jacoco.version>
+    <jackson.version>2.13.4</jackson.version>
     <junit.version>5.9.0</junit.version>
     <lombok.version>1.18.24</lombok.version>
     <maven.checkstyle.version>3.2.0</maven.checkstyle.version>
@@ -173,6 +174,11 @@
         <groupId>com.google.guava</groupId>
         <artifactId>guava</artifactId>
         <version>${guava.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-databind</artifactId>
+        <version>${jackson.version}</version>
       </dependency>
       <dependency>
         <groupId>org.slf4j</groupId>

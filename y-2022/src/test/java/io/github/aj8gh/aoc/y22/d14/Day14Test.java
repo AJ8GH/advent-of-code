@@ -1,4 +1,4 @@
-package io.github.aj8gh.aoc.y22.d13;
+package io.github.aj8gh.aoc.y22.d14;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -6,17 +6,19 @@ import io.github.aj8gh.aoc.util.InputProvider;
 import java.util.List;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-class Day13Test extends InputProvider {
+@Disabled
+class Day14Test extends InputProvider {
 
-  private Day13 classUnderTest;
+  private Day14 classUnderTest;
 
   @BeforeEach
   void setUp() {
-    classUnderTest = new Day13();
+    classUnderTest = new Day14();
   }
 
   @ParameterizedTest
@@ -34,26 +36,17 @@ class Day13Test extends InputProvider {
   }
 
   private static Stream<Arguments> inputProviderPart1() {
-    return Stream.concat(getInput(13, 4643), getAdditionalExamples(43, 177, 4, 180));
+    return getInput(24, 0);
   }
 
   private static Stream<Arguments> inputProviderPart2() {
-    return getInput(140, 21614);
+    return getInput(0, 0);
   }
 
   private static Stream<Arguments> getInput(int example, int result) {
     return Stream.of(
-        Arguments.of(reader().getExample(DAY_13).asStringList(), example),
-        Arguments.of(reader().getInput(DAY_13).asStringList(), result)
-    );
-  }
-
-  private static Stream<Arguments> getAdditionalExamples(int... examples) {
-    return Stream.of(
-        Arguments.of(reader().getExample2(DAY_13).asStringList(), examples[0]),
-        Arguments.of(reader().getExample3(DAY_13).asStringList(), examples[1]),
-        Arguments.of(reader().getExample4(DAY_13).asStringList(), examples[2]),
-        Arguments.of(reader().getExample5(DAY_13).asStringList(), examples[3])
+        Arguments.of(reader().getExample(DAY_14).asStringList(), example),
+        Arguments.of(reader().getInput(DAY_14).asStringList(), result)
     );
   }
 }

@@ -1,0 +1,14 @@
+package io.github.aj8gh.aoc.y22.d14;
+
+import java.util.List;
+
+public class Day14 {
+
+  public int part1(List<String> input) {
+    return 0;
+  }
+
+  public int part2(List<String> input) {
+    return 0;
+  }
+}

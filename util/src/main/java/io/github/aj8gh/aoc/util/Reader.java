@@ -15,6 +15,8 @@ public class Reader {
   private static final String EXAMPLE = "d%s/example.txt";
   private static final String EXAMPLE_2 = "d%s/example2.txt";
   private static final String EXAMPLE_3 = "d%s/example3.txt";
+  private static final String EXAMPLE_4 = "d%s/example4.txt";
+  private static final String EXAMPLE_5 = "d%s/example5.txt";
 
   public Input get(int day, String fileName) {
     return new Input(getStream(fileName, day));
@@ -34,6 +36,14 @@ public class Reader {
 
   public Input getExample3(int day) {
     return new Input(getStream(EXAMPLE_3, day));
+  }
+
+  public Input getExample4(int day) {
+    return new Input(getStream(EXAMPLE_4, day));
+  }
+
+  public Input getExample5(int day) {
+    return new Input(getStream(EXAMPLE_5, day));
   }
 
   private Stream<String> getStream(String file, int day) {
