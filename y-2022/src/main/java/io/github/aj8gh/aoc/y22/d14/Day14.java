@@ -126,12 +126,4 @@ public class Day14 {
       Arrays.fill(output[output.length - 1], ROCK);
     }
   }
-
-  private void log() {
-    var sb = new StringBuilder("\n");
-    for (var line : map) {
-      sb.append(Arrays.asList(line)).append("\n");
-    }
-    log.info("{}", sb);
-  }
 }

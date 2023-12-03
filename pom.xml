@@ -14,12 +14,15 @@
     <module>y-2015</module>
     <module>y-2021</module>
     <module>y-2022</module>
+    <module>y-2023</module>
     <module>coverage</module>
   </modules>
 
   <properties>
     <checkstyle.config.location>google_checks.xml</checkstyle.config.location>
-    <checkstyle.supressions.location>${project.build.directory}/classes/checkstyle-suppressions.xml</checkstyle.supressions.location>
+    <checkstyle.supressions.location>
+      ${project.build.directory}/classes/checkstyle-suppressions.xml
+    </checkstyle.supressions.location>
     <checkstyle.severity>warning</checkstyle.severity>
     <checkstyle.console>true</checkstyle.console>
     <checkstyle.fail>true</checkstyle.fail>
@@ -27,7 +30,7 @@
     <jacoco.haltOnFailure>true</jacoco.haltOnFailure>
     <jacoco.target>0.8</jacoco.target>
     <jacoco.version>0.8.8</jacoco.version>
-    <jackson.version>2.13.4</jackson.version>
+    <jackson.version>2.13.4.1</jackson.version>
     <junit.version>5.9.0</junit.version>
     <lombok.version>1.18.24</lombok.version>
     <maven.checkstyle.version>3.2.0</maven.checkstyle.version>

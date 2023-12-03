@@ -23,9 +23,9 @@ public class Day15 {
   public long part1(List<String> input, int rowToCheck) {
     parse(input);
     var maxDiff = Collections.max(digits.stream().map(this::getDiff).toList());
-    var xDigits = getBeacons(digits);
-    var maxX = Collections.max(xDigits);
-    var minX = Collections.min(xDigits);
+    var rowDigits = getBeacons(digits);
+    var maxX = Collections.max(rowDigits);
+    var minX = Collections.min(rowDigits);
 
     return range(minX - maxDiff, maxX + maxDiff)
         .filter(i -> isNotBeacon(i, rowToCheck) && isCovered(i, rowToCheck))
