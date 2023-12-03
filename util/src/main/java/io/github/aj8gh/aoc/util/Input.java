@@ -37,6 +37,12 @@ public class Input {
         .toArray(String[][]::new);
   }
 
+  public List<List<String>> asNestedStringList() {
+    return new ArrayList<>(result
+        .map(s -> new ArrayList<>(Arrays.stream(s.split("")).toList()))
+        .toList());
+  }
+
   public List<List<String>> asNestedStringList(String delimiter) {
     return new ArrayList<>(result
         .map(s -> new ArrayList<>(Arrays.stream(s.split(delimiter)).toList()))

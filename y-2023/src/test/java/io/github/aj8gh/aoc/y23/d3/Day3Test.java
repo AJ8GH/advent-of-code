@@ -11,7 +11,6 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-@Disabled
 class Day3Test extends InputProvider {
 
   private Day3 classUnderTest;
@@ -23,14 +22,14 @@ class Day3Test extends InputProvider {
 
   @ParameterizedTest
   @MethodSource(value = INPUT_PROVIDER_PART_1)
-  void part1(List<String> input, int expected) {
+  void part1(List<List<String>> input, int expected) {
     var actual = classUnderTest.part1(input);
     assertEquals(expected, actual);
   }
 
   @ParameterizedTest
   @MethodSource(value = INPUT_PROVIDER_PART_2)
-  void part2(List<String> input, int expected) {
+  void part2(List<List<String>> input, int expected) {
     var actual = classUnderTest.part2(input);
     assertEquals(expected, actual);
   }
@@ -40,13 +39,13 @@ class Day3Test extends InputProvider {
   }
 
   private static Stream<Arguments> inputProviderPart2() {
-    return getInput(0, 0);
+    return getInput(467835, 0);
   }
 
   private static Stream<Arguments> getInput(int example, int result) {
     return Stream.of(
-        Arguments.of(reader().getExample(DAY_3).asStringList(), example),
-        Arguments.of(reader().getInput(DAY_3).asStringList(), result)
+        Arguments.of(reader().getExample(DAY_3).asNestedStringList(), example),
+        Arguments.of(reader().getInput(DAY_3).asNestedStringList(), result)
     );
   }
 }
