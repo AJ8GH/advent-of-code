@@ -33,8 +33,6 @@ Of course, the actual engine schematic is much larger. _What is the sum of all o
 
 Your puzzle answer was `553825`.
 
-The first half of this puzzle is complete! It provides one gold star: ⭐
-
 \--- Part Two ---
 -----------------
 
@@ -65,4 +63,10 @@ Consider the same engine schematic again:
 In this schematic, there are _two_ gears. The first is in the top left; it has part numbers `467` and `35`, so its gear ratio is `16345`. The second gear is in the lower right; its gear ratio is `451490`. (The `*` adjacent to `617` is _not_ a gear because it is only adjacent to one part number.) Adding up all of the gear ratios produces `_467835_`.
 
 _What is the sum of all of the gear ratios in your engine schematic?_
+
+Your puzzle answer was `93994191`.
+
+Both parts of this puzzle are complete! They provide two gold stars: ⭐ ⭐
+
+
 

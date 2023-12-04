@@ -7,6 +7,7 @@ import java.util.regex.Pattern;
 
 public class Day3 {
 
+  private static final GearMultiplier GEAR_MULTIPLIER = new GearMultiplier();
   private static final Pattern DIGIT = Pattern.compile("\\d");
   private static final Pattern SYMBOL = Pattern.compile("[^\\d|^.]");
 
@@ -17,20 +18,14 @@ public class Day3 {
       var row = input.get(i);
       for (int j = 0; j < row.size(); j++) {
         var point = row.get(j);
-        if (DIGIT.matcher(point).find()) {
-          var num = new StringBuilder(point);
-          var newJ = j + 1;
-          var next = row.get(newJ);
-          while (DIGIT.matcher(next).find()) {
-            num.append(next);
-            if (newJ < row.size() - 1) {
-              next = row.get(++newJ);
-            } else {
-              break;
-            }
+        if (isDigit(point)) {
+          var num = findNum(row, j);
+          var newJ = j + num.length();
+          if (newJ == row.size()) {
+            newJ--;
           }
           if (isAdjacent(input, i, j, newJ)) {
-            total += parseInt(num.toString());
+            total += parseInt(num);
           }
           j = newJ;
         }
@@ -41,22 +36,22 @@ public class Day3 {
   }
 
   public int part2(List<List<String>> input) {
-    return 0;
+    return GEAR_MULTIPLIER.getTotal(input);
   }
 
   private boolean isAdjacent(List<List<String>> input, int i, int j, int newJ) {
-    if (j > 0 && isSymbol(input.get(i).get(j - 1))) {
-      return true;
-    }
-    if (newJ < input.get(i).size() + 2 && isSymbol(input.get(i).get(newJ))) {
-      return true;
-    }
-    var start = j > 0 ? j - 1 : j;
-    for (int k = start; k <= newJ; k++) {
-      if (i > 0 && isSymbol(input.get(i - 1).get(k))) {
-        return true;
-      }
-      if (i < input.size() - 1 && isSymbol(input.get(i + 1).get(k))) {
+    return isSideAdjacent(input, i, j, newJ) || isVerticalAdjacent(input, i, j, newJ);
+  }
+
+  private boolean isSideAdjacent(List<List<String>> input, int i, int j, int newJ) {
+    return (j > 0 && isSymbol(input.get(i).get(j - 1)))
+        || isSymbol(input.get(i).get(newJ));
+  }
+
+  private boolean isVerticalAdjacent(List<List<String>> input, int i, int j, int newJ) {
+    for (int k = j > 0 ? j - 1 : j; k <= newJ; k++) {
+      if (i > 0 && isSymbol(input.get(i - 1).get(k))
+          || i < input.size() - 1 && isSymbol(input.get(i + 1).get(k))) {
         return true;
       }
     }
@@ -65,5 +60,24 @@ public class Day3 {
 
   private boolean isSymbol(String s) {
     return SYMBOL.matcher(s).find();
+  }
+
+  private boolean isDigit(String s) {
+    return DIGIT.matcher(s).find();
+  }
+
+  private String findNum(List<String> row, int j) {
+    var num = new StringBuilder(row.get(j));
+    var newJ = j + 1;
+    var next = row.get(newJ);
+    while (isDigit(next)) {
+      num.append(next);
+      if (newJ < row.size() - 1) {
+        next = row.get(++newJ);
+      } else {
+        break;
+      }
+    }
+    return num.toString();
   }
 }
