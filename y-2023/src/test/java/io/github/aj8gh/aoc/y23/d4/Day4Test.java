@@ -38,7 +38,7 @@ class Day4Test extends InputProvider {
   }
 
   private static Stream<Arguments> inputProviderPart2() {
-    return getInput(30L, 0L);
+    return getInput(30L, 18846301L);
   }
 
   private static Stream<Arguments> getInput(long example, long result) {

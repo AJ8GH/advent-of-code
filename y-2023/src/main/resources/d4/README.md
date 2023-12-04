@@ -39,8 +39,6 @@ Take a seat in the large pile of colorful cards. _How many points are they worth
 
 Your puzzle answer was `24175`.
 
-The first half of this puzzle is complete! It provides one gold star: ⭐
-
 \--- Part Two ---
 -----------------
 
@@ -73,4 +71,10 @@ This time, the above example goes differently:
 Once all of the originals and copies have been processed, you end up with `_1_` instance of card 1, `_2_` instances of card 2, `_4_` instances of card 3, `_8_` instances of card 4, `_14_` instances of card 5, and `_1_` instance of card 6. In total, this example pile of scratchcards causes you to ultimately have `_30_` scratchcards!
 
 Process all of the original and copied scratchcards until no more scratchcards are won. Including the original set of scratchcards, _how many total scratchcards do you end up with?_
+
+Your puzzle answer was `18846301`.
+
+Both parts of this puzzle are complete! They provide two gold stars: ⭐ ⭐
+
+
 
