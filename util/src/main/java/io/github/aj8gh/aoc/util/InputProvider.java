@@ -1,5 +1,10 @@
 package io.github.aj8gh.aoc.util;
 
+import static lombok.AccessLevel.PROTECTED;
+
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor(access = PROTECTED)
 public abstract class InputProvider {
 
   private static final Reader READER = new Reader();

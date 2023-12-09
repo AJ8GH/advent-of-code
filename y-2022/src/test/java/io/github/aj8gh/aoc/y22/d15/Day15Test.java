@@ -14,24 +14,24 @@ import org.junit.jupiter.params.provider.MethodSource;
 @Disabled
 class Day15Test extends InputProvider {
 
-  private Day15 classUnderTest;
+  private Day15 subject;
 
   @BeforeEach
   void setUp() {
-    classUnderTest = new Day15();
+    subject = new Day15();
   }
 
   @ParameterizedTest
   @MethodSource(value = INPUT_PROVIDER_PART_1)
   void part1(List<String> input, int rowToCheck, int expected) {
-    var actual = classUnderTest.part1(input, rowToCheck);
+    var actual = subject.part1(input, rowToCheck);
     assertEquals(expected, actual);
   }
 
   @ParameterizedTest
   @MethodSource(value = INPUT_PROVIDER_PART_2)
   void part2(List<String> input, int upperBound, int expected) {
-    var actual = classUnderTest.part2(input, upperBound);
+    var actual = subject.part2(input, upperBound);
     assertEquals(expected, actual);
   }
 

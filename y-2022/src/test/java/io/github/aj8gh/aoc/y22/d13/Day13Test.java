@@ -12,24 +12,24 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 class Day13Test extends InputProvider {
 
-  private Day13 classUnderTest;
+  private Day13 subject;
 
   @BeforeEach
   void setUp() {
-    classUnderTest = new Day13();
+    subject = new Day13();
   }
 
   @ParameterizedTest
   @MethodSource(value = INPUT_PROVIDER_PART_1)
   void part1(List<String> input, int expected) {
-    var actual = classUnderTest.part1(input);
+    var actual = subject.part1(input);
     assertEquals(expected, actual);
   }
 
   @ParameterizedTest
   @MethodSource(value = INPUT_PROVIDER_PART_2)
   void part2(List<String> input, int expected) {
-    var actual = classUnderTest.part2(input);
+    var actual = subject.part2(input);
     assertEquals(expected, actual);
   }
 
