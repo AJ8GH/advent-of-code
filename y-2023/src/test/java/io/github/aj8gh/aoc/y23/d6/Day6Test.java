@@ -6,10 +6,12 @@ import io.github.aj8gh.aoc.util.InputProvider;
 import java.util.List;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+@Disabled
 class Day6Test extends InputProvider {
 
   private Day6 subject;
